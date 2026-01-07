@@ -1,0 +1,38 @@
+{
+  "id": "LEADERSHIP",
+  "label": "Leadership",
+  "notation": "1. f4",
+  "pieceType": "King",
+  "description": "Achievements & Goals.",
+  "items": [
+    {
+      "id": "l1",
+      "title": "Coders Cup 2025",
+      "subtitle": "Head / Lead Organizer",
+      "description": "Directed a cross-functional team of 30+ members to deliver a nationwide competitive programming event for 1,000+ participants. Architected the contest platform infrastructure, ensuring sub-second latency for real-time leaderboards and concurrent code submissions. Managed end-to-end execution from planning to delivery.",
+      "techStack": ["Leadership", "Project Management", "Team Coordination"],
+      "badges": ["1,000+ Participants", "30+ Team Members", "Nov 2025"],
+      "complexityScore": 9.5,
+      "chessMove": { "pieceId": "bp-3", "to": [3, 3] }
+    },
+    {
+      "id": "l2",
+      "title": "Academic Excellence",
+      "subtitle": "Recognition & Achievements",
+      "description": "Dean's List recipient for academic excellence at FAST-NUCES. Top 10% ranking on LeetCode with 300+ problems solved. Certified in Python Fundamentals (Microsoft) and Data Analysis (IBM). Consistently maintaining high academic standards while working on impactful projects.",
+      "badges": ["Dean's List", "Top 10% LeetCode", "Certified"],
+      "complexityScore": 7.5,
+      "chessMove": { "pieceId": "bp-4", "to": [3, 4] }
+    },
+    {
+      "id": "l3",
+      "title": "Community Impact",
+      "subtitle": "Mentorship & Contribution",
+      "description": "Created Sénior platform connecting 100+ juniors with verified mentors, reducing administrative overhead by 90%. Published open-source tools on PyPI for the developer community. Active technical writer sharing knowledge through Medium articles.",
+      "techStack": ["Mentorship", "Open Source", "Technical Writing"],
+      "badges": ["Community Builder", "Open Source"],
+      "complexityScore": 8.0,
+      "chessMove": { "pieceId": "bp-5", "to": [2, 5] }
+    }
+  ]
+}

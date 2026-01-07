@@ -1,0 +1,31 @@
+{
+  "id": "RESEARCH",
+  "label": "Research and writings",
+  "notation": "1. d4",
+  "pieceType": "Bishop",
+  "description": "Theory & Publications.",
+  "items": [
+    {
+      "id": "r1",
+      "title": "ISO C++ Publication",
+      "subtitle": "WG21 Paper P3883R0",
+      "description": "A Unary Postfix Operator for Boolean Inversion in C++",
+      "techStack": ["C++", "ISO", "Language Design"],
+      "badges": ["ISO Published"],
+      "link": "https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2025/p3883r0.pdf",
+      "complexityScore": 8.5,
+      "chessMove": { "pieceId": "bp-3", "to": [3, 3] }
+    },
+    {
+      "id": "r2",
+      "title": "Medium Profile",
+      "subtitle": "Technical Writing",
+      "description": "Writing articles about computer science and mathematics. Sharing insights on algorithms, system design, and mathematical concepts through engaging technical content.",
+      "techStack": ["Medium", "Technical Writing", "CS & Mathematics"],
+      "badges": ["Published Author"],
+      "link": "https://medium.com/@taaha2004",
+      "complexityScore": 7.0,
+      "chessMove": { "pieceId": "bp-5", "to": [2, 5] }
+    }
+  ]
+}

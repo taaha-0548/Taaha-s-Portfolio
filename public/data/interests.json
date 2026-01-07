@@ -1,0 +1,59 @@
+{
+  "id": "INTERESTS",
+  "label": "Interests",
+  "notation": "1. c4",
+  "pieceType": "Pawn",
+  "description": "Hobbies & Passions.",
+  "items": [
+    {
+      "id": "i1",
+      "title": "Competitive Programming",
+      "subtitle": "LeetCode Top 10%",
+      "description": "Solved 300+ algorithmic problems on LeetCode, ranking in the top 10% globally. Focus on data structures, dynamic programming, and problem solving. Active participant in coding competitions and hackathons.",
+      "techStack": ["Algorithms", "Data Structures", "Problem Solving"],
+      "badges": ["Top 10%", "300+ Problems"],
+      "link": "https://leetcode.com/u/Taaha2004/",
+      "complexityScore": 8.5,
+      "chessMove": { "pieceId": "bp-4", "to": [3, 4] }
+    },
+    {
+      "id": "i2",
+      "title": "Problem Solving",
+      "subtitle": "Software Solutions",
+      "description": "Love making software solutions that help people. Passionate about identifying real-world problems and crafting elegant technical solutions that make a difference.",
+      "techStack": ["Software Development", "User-Centric Design", "Innovation"],
+      "complexityScore": 7.5,
+      "chessMove": { "pieceId": "bp-2", "to": [3, 2] }
+    },
+    {
+      "id": "i3",
+      "title": "Chess",
+      "subtitle": "1650 Elo | Tournament Player",
+      "description": "Competitive chess player with an Elo rating of 1650. Regular participant in chess tournaments, combining strategic thinking with tactical precision. Love analyzing openings and endgame positions.",
+      "techStack": ["Strategy", "Pattern Recognition", "Critical Thinking"],
+      "badges": ["Tournament Player"],
+      "link": "https://www.chess.com/member/not_taaha",
+      "complexityScore": 8.0,
+      "chessMove": { "pieceId": "bp-5", "to": [2, 5] }
+    },
+    {
+      "id": "i4",
+      "title": "Table Tennis",
+      "subtitle": "Recreational Sport",
+      "description": "Enjoy playing table tennis for both competition and recreation. Great way to maintain quick reflexes and strategic thinking while having fun.",
+      "techStack": ["Sports", "Recreation", "Competition"],
+      "complexityScore": 5.0,
+      "chessMove": { "pieceId": "bp-6", "to": [2, 6] }
+    },
+    {
+      "id": "i5",
+      "title": "Fictional Writing",
+      "subtitle": "Creative Storytelling",
+      "description": "Crafting fictional narratives and exploring creative storytelling. Writing allows me to blend imagination with structured thinking, creating engaging stories and worlds.",
+      "techStack": ["Creative Writing", "Storytelling", "Narrative Design"],
+      "link": "https://yummy-comb-ab2.notion.site/Survival-Instinct-4cb7d09338a041ec9109fbd35eb98c1c?pvs=18",
+      "complexityScore": 6.5,
+      "chessMove": { "pieceId": "bp-0", "to": [2, 0] }
+    }
+  ]
+}

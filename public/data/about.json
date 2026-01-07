@@ -1,0 +1,57 @@
+{
+  "id": "ABOUT",
+  "label": "About Me",
+  "notation": "1. Nf3",
+  "pieceType": "Rook",
+  "description": "The Engineer.",
+  "items": [
+    {
+      "id": "ab1",
+      "title": "Muhammad Taaha",
+      "subtitle": "Software Engineer & Student",
+      "description": "Computer Science student at FAST-NUCES (GPA: 3.52/4.00) with a passion for building scalable systems and solving complex problems. Dean's List recipient and top 10% on LeetCode. Interested in distributed systems, network programming, and creating tools that make a difference.",
+      "badges": ["Dean's List", "FAST-NUCES"],
+      "complexityScore": 2.0,
+      "chessMove": { "pieceId": "bp-3", "to": [3, 3] }
+    },
+    {
+      "id": "ab2",
+      "title": "Education",
+      "subtitle": "Academic Journey",
+      "description": "Bachelor of Science in Computer Science from National University of Computer and Emerging Sciences (FAST-NUCES), Karachi. Expected graduation: 2027. Certified in Python Fundamentals (Microsoft) and Data Analysis (IBM) via Coursera.",
+      "techStack": ["Computer Science", "Mathematics", "Algorithms"],
+      "badges": ["GPA: 3.52/4.00", "2023-2027"],
+      "complexityScore": 3.0,
+      "chessMove": { "pieceId": "bp-6", "to": [2, 6] }
+    },
+    {
+      "id": "ab2b",
+      "title": "Certifications",
+      "subtitle": "Professional Development",
+      "description": "Python Fundamentals by Microsoft and Data Analysis by IBM, both completed via Coursera. Continuously expanding knowledge through online courses and industry certifications.",
+      "techStack": ["Microsoft", "IBM", "Coursera"],
+      "badges": ["Python Certified", "Data Analysis"],
+      "link": "https://www.coursera.org/account/accomplishments/verify/2VB6006STS1I",
+      "complexityScore": 4.0,
+      "chessMove": { "pieceId": "bp-0", "to": [2, 0] }
+    },
+    {
+      "id": "ab3",
+      "title": "Technical Skills",
+      "subtitle": "Tech Stack & Tools",
+      "description": "Proficient in Python, JavaScript, SQL, C/C++, Java, and x86 Assembly. Experienced with React.js, Node.js, Express.js, Flask, PostgreSQL, Docker, AWS, Git, and Linux. Strong foundation in distributed systems, network programming, REST APIs, and RBAC.",
+      "techStack": ["Python", "JavaScript", "React", "Node.js", "PostgreSQL", "Docker", "AWS", "Flask", "Git", "Linux"],
+      "complexityScore": 8.5,
+      "chessMove": { "pieceId": "bp-1", "to": [2, 1] }
+    },
+    {
+      "id": "ab4",
+      "title": "Soft Skills",
+      "subtitle": "Beyond Code",
+      "description": "Strong communicator with experience in technical writing, team leadership, and cross-functional collaboration. Published writer on Medium, organizer of large-scale events, and mentor to junior developers.",
+      "techStack": ["Leadership", "Communication", "Writing", "Mentorship"],
+      "complexityScore": 6.0,
+      "chessMove": { "pieceId": "bp-7", "to": [2, 7] }
+    }
+  ]
+}
