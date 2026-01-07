@@ -146,9 +146,9 @@ const ChessBoard: React.FC<ChessBoardProps> = ({
   };
 
   return (
-    <div className="w-full h-full flex items-center justify-center relative">
+    <div className="w-full h-full flex items-center justify-center relative p-2 sm:p-4">
       {/* Board Container: Responsive sizing that adapts to viewport */}
-      <div className="relative aspect-square w-auto h-full max-w-full max-h-full shadow-2xl rounded-sm overflow-hidden border-4 md:border-8 border-[#2A2A2A]">
+      <div className="relative aspect-square w-full max-w-[min(100%,600px)] h-auto max-h-full shadow-2xl rounded-sm overflow-hidden border-2 sm:border-4 md:border-8 border-[#2A2A2A]">
         <div className="grid grid-rows-8 h-full w-full">
           {[...Array(8)].map((_, rowIndex) => (
             <div key={rowIndex} className="grid grid-cols-8 h-full w-full">
