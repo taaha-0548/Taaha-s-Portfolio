@@ -131,7 +131,7 @@ const App: React.FC = () => {
                 fixed inset-x-0 bottom-0 z-30 
                 md:relative md:inset-auto md:basis-[35%] md:lg:basis-[30%] md:h-full
                 transition-transform duration-300 ease-in-out
-                ${isMobileNavOpen ? 'translate-y-0 h-[70vh] max-h-[600px]' : 'translate-y-[calc(100%-60px)] h-[70vh] max-h-[600px]'}
+                ${isMobileNavOpen ? 'translate-y-0 h-[60vh]' : 'translate-y-[calc(100%-60px)] h-[60vh]'}
                 md:translate-y-0 md:h-auto
                 bg-[#1A1A1A] border-t md:border-t-0 md:border-l border-[#333] shadow-2xl md:shadow-none
             `}>

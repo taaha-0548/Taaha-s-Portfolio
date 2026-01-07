@@ -67,7 +67,7 @@ const VisualStage: React.FC<VisualStageProps> = ({
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 20 }}
                     transition={{ duration: 0.4, ease: "easeOut", delay: 0.2 }}
-                    className="absolute inset-0 z-40 flex items-center justify-center p-3 sm:p-6 md:p-8 lg:p-12"
+                    className="absolute inset-0 z-40 flex items-center justify-center p-4 sm:p-8 md:p-12 lg:p-20"
                     onClick={onClearSelection} // Click outside to close
                 >
                     <div 
@@ -75,9 +75,9 @@ const VisualStage: React.FC<VisualStageProps> = ({
                         onClick={(e) => e.stopPropagation()}
                     >
                         {/* Card Header */}
-                        <div className="relative p-4 sm:p-6 md:p-8 border-b border-[#333] flex justify-between items-start gap-4">
+                        <div className="relative p-6 sm:p-8 border-b border-[#333] flex justify-between items-start gap-4">
                              <div className="flex-1">
-                                <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-serif text-white mb-2 leading-tight">{activeItem.title}</h2>
+                                <h2 className="text-2xl md:text-4xl font-serif text-white mb-2 leading-tight">{activeItem.title}</h2>
                                 {activeItem.subtitle && (
                                     <p className="text-[#C5A059] font-mono text-xs uppercase tracking-widest">{activeItem.subtitle}</p>
                                 )}
@@ -106,7 +106,7 @@ const VisualStage: React.FC<VisualStageProps> = ({
                         </div>
 
                         {/* Card Body */}
-                        <div className="p-4 sm:p-6 md:p-8 overflow-y-auto flex flex-col md:flex-row gap-6 md:gap-8">
+                        <div className="p-6 sm:p-8 overflow-y-auto flex flex-col md:flex-row gap-8">
                             
                             {/* Main Content */}
                             <div className="flex-1">

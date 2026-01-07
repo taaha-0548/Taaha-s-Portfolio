@@ -65,10 +65,10 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart, onOpenResume }) => {
 
             {/* Hero Typography - High Contrast */}
             <div className="flex flex-col items-center gap-4">
-                <h1 className="text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-serif font-medium text-white tracking-tighter leading-[0.9]">
+                <h1 className="text-5xl md:text-8xl lg:text-9xl font-serif font-medium text-white tracking-tighter leading-[0.9] text-nowrap">
                     Muhammad Taaha
                 </h1>
-                <p className="text-neutral-400 text-base sm:text-lg md:text-xl font-mono tracking-wide">
+                <p className="text-neutral-400 text-lg md:text-xl font-mono tracking-wide">
                     Building Systems, Solving Problems
                 </p>
             </div>
