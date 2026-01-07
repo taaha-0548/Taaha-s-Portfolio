@@ -31,32 +31,38 @@ const VisualStage: React.FC<VisualStageProps> = ({
         <div className="absolute inset-0 jali-pattern pointer-events-none"></div>
 
         {/* Layer 1: The Board (Context) */}
-        <div className={`absolute inset-0 transition-all duration-700 ease-out flex items-center justify-center gap-6 p-4 md:p-8 lg:p-12
+        <div className={`absolute inset-0 transition-all duration-700 ease-out flex items-center justify-center gap-1 p-2 md:p-8 lg:p-12
             ${activeItem ? 'scale-95 opacity-50 blur-[1px]' : 'scale-100 opacity-100'}
         `}>
-            {/* Evaluation Bar (Left of Board) - Always visible */}
-            <div className="h-full max-h-[650px] flex items-center gap-2 shrink-0">
-                <div className="flex-1 h-full w-12 bg-white border-4 border-[#2A2A2A] relative overflow-hidden shadow-xl">
+            {/* Container for eval bar + board to maintain proper sizing */}
+            <div className="flex items-center gap-1 h-full w-full max-w-full max-h-full">
+                {/* Evaluation Bar (Left of Board) - Always visible */}
+                <div className="h-[min(80vw,calc(100vh-120px))] md:h-full w-6 sm:w-8 md:w-12 flex items-center gap-1 shrink-0">
+                    <div className="flex-1 h-full w-full bg-white border border-[#2A2A2A] sm:border-2 md:border-4 relative overflow-hidden shadow-xl">
                     {/* Black advantage (top half) */}
                     <div 
                         className="absolute left-0 right-0 top-0 bg-[#1A1A1A] transition-all duration-500"
                         style={{ height: activeItem?.complexityScore ? `${Math.max(0, 50 - (activeItem.complexityScore * 5))}%` : '50%' }}
                     ></div>
                     {/* Center line indicator */}
-                    <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-[2px] bg-[#666] z-10"></div>
+                    <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-[1px] md:h-[2px] bg-[#666] z-10"></div>
+                    </div>
+                    {/* Evaluation score beside the bar */}
+                    <span className="font-mono text-[9px] sm:text-xs md:text-sm text-white font-bold leading-none">
+                        {activeItem?.complexityScore ? activeItem.complexityScore.toFixed(1) : '0.0'}
+                    </span>
                 </div>
-                {/* Evaluation score beside the bar */}
-                <span className="font-mono text-sm text-white font-bold">
-                    {activeItem?.complexityScore ? activeItem.complexityScore.toFixed(1) : '0.0'}
-                </span>
+                
+                {/* Board wrapper with proper constraints */}
+                <div className="flex-1 h-full flex items-center justify-center min-w-0">
+                    <ChessBoard 
+                        activeCategory={activeCategory} 
+                        activeItem={activeItem} // Pass item to trigger Black move
+                        onSelectCategory={onSelectCategory}
+                        hoveredCategory={hoveredCategory}
+                    />
+                </div>
             </div>
-            
-            <ChessBoard 
-                activeCategory={activeCategory} 
-                activeItem={activeItem} // Pass item to trigger Black move
-                onSelectCategory={onSelectCategory}
-                hoveredCategory={hoveredCategory}
-            />
         </div>
 
         {/* Layer 2: Detail Overlay (Glassmorphism) */}
@@ -67,31 +73,31 @@ const VisualStage: React.FC<VisualStageProps> = ({
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 20 }}
                     transition={{ duration: 0.4, ease: "easeOut", delay: 0.2 }}
-                    className="absolute inset-0 z-40 flex items-center justify-center p-4 sm:p-8 md:p-12 lg:p-20"
+                    className="absolute inset-0 z-40 flex items-center justify-center p-3 sm:p-6 md:p-12 lg:p-20"
                     onClick={onClearSelection} // Click outside to close
                 >
                     <div 
-                        className="w-full max-w-3xl bg-[#252525]/90 backdrop-blur-xl border border-[rgba(197,160,89,0.1)] shadow-2xl rounded-sm overflow-hidden flex flex-col max-h-full"
+                        className="w-full max-w-3xl bg-[#252525]/95 backdrop-blur-xl border border-[rgba(197,160,89,0.1)] shadow-2xl rounded-sm overflow-hidden flex flex-col max-h-[90vh]"
                         onClick={(e) => e.stopPropagation()}
                     >
                         {/* Card Header */}
-                        <div className="relative p-6 sm:p-8 border-b border-[#333] flex justify-between items-start gap-4">
+                        <div className="relative p-4 sm:p-6 md:p-8 border-b border-[#333] flex flex-col sm:flex-row justify-between items-start gap-3 sm:gap-4">
                              <div className="flex-1">
-                                <h2 className="text-2xl md:text-4xl font-serif text-white mb-2 leading-tight">{activeItem.title}</h2>
+                                <h2 className="text-xl sm:text-2xl md:text-4xl font-serif text-white mb-2 leading-tight">{activeItem.title}</h2>
                                 {activeItem.subtitle && (
                                     <p className="text-[#C5A059] font-mono text-xs uppercase tracking-widest">{activeItem.subtitle}</p>
                                 )}
                                 
                                 {/* Chips / Badges */}
-                                <div className="flex flex-wrap gap-2 mt-4">
+                                <div className="flex flex-wrap gap-1.5 sm:gap-2 mt-3 sm:mt-4">
                                     {activeItem.badges?.map(badge => (
-                                        <span key={badge} className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#1A1A1A] border border-[#333] rounded-full text-[10px] font-mono text-[#CCC] uppercase tracking-wide">
-                                            <Star size={10} className="text-[#C5A059]" /> {badge}
+                                        <span key={badge} className="inline-flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-0.5 sm:py-1 bg-[#1A1A1A] border border-[#333] rounded-full text-[9px] sm:text-[10px] font-mono text-[#CCC] uppercase tracking-wide">
+                                            <Star size={9} className="text-[#C5A059]" /> {badge}
                                         </span>
                                     ))}
                                     {activeItem.techStack?.slice(0, 3).map(tech => (
-                                        <span key={tech} className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#1A1A1A] border border-[#333] rounded-full text-[10px] font-mono text-[#CCC] uppercase tracking-wide">
-                                            <Code2 size={10} className="text-[#2A9D8F]" /> {tech}
+                                        <span key={tech} className="inline-flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-0.5 sm:py-1 bg-[#1A1A1A] border border-[#333] rounded-full text-[9px] sm:text-[10px] font-mono text-[#CCC] uppercase tracking-wide">
+                                            <Code2 size={9} className="text-[#2A9D8F]" /> {tech}
                                         </span>
                                     ))}
                                 </div>
@@ -99,19 +105,19 @@ const VisualStage: React.FC<VisualStageProps> = ({
 
                             <button 
                                 onClick={onClearSelection}
-                                className="text-xs flex items-center gap-1 text-[#888] hover:text-[#C5A059] transition-colors uppercase font-mono tracking-widest shrink-0"
+                                className="text-[10px] sm:text-xs flex items-center gap-1 text-[#888] hover:text-[#C5A059] transition-colors uppercase font-mono tracking-widest shrink-0 mt-2 sm:mt-0"
                             >
                                 <ArrowLeft size={12} /> Back
                             </button>
                         </div>
 
                         {/* Card Body */}
-                        <div className="p-6 sm:p-8 overflow-y-auto flex flex-col md:flex-row gap-8">
+                        <div className="p-4 sm:p-6 md:p-8 overflow-y-auto flex flex-col gap-6 sm:gap-8">
                             
                             {/* Main Content */}
                             <div className="flex-1">
-                                <h3 className="font-mono text-[10px] uppercase text-[#666] mb-4 tracking-widest">Analysis</h3>
-                                <p className="text-[#DDD] font-sans text-base md:text-lg leading-relaxed font-light mb-8">
+                                <h3 className="font-mono text-[10px] uppercase text-[#666] mb-3 sm:mb-4 tracking-widest">Analysis</h3>
+                                <p className="text-[#DDD] font-sans text-sm sm:text-base md:text-lg leading-relaxed font-light mb-6 sm:mb-8">
                                     {activeItem.description}
                                 </p>
                                 
@@ -129,9 +135,9 @@ const VisualStage: React.FC<VisualStageProps> = ({
                                         href={activeItem.link} 
                                         target="_blank" 
                                         rel="noreferrer"
-                                        className="inline-flex items-center gap-2 px-6 py-3 bg-[#C5A059] hover:bg-[#D4AF37] text-black font-bold text-xs uppercase tracking-widest rounded-sm transition-colors shadow-lg"
+                                        className="inline-flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 sm:py-3 bg-[#C5A059] hover:bg-[#D4AF37] text-black font-bold text-[10px] sm:text-xs uppercase tracking-widest rounded-sm transition-colors shadow-lg w-full sm:w-auto"
                                     >
-                                        Execute Move <ExternalLink size={14} />
+                                        Execute Move <ExternalLink size={12} />
                                     </a>
                                 )}
                             </div>

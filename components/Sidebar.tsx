@@ -32,29 +32,31 @@ const Sidebar: React.FC<SidebarProps> = ({
     <div className="w-full h-full bg-[#1A1A1A] flex flex-col border-l border-[#333] relative">
       
       {/* 1. Sticky Header (Command Center Top) */}
-      <div className="sticky top-0 z-20 bg-[#1A1A1A]/95 backdrop-blur-sm border-b border-[#333] p-6 flex flex-row items-center justify-between shadow-sm">
+      <div className="sticky top-0 z-20 bg-[#1A1A1A]/95 backdrop-blur-sm border-b border-[#333] p-3 sm:p-4 md:p-6 flex flex-row items-center justify-between shadow-sm">
          <div 
-            className="flex items-center gap-3 cursor-pointer group select-none"
+            className="flex items-center gap-2 sm:gap-3 cursor-pointer group select-none"
             onClick={onHome}
             title="Return to Start"
          >
-             <ChevronLeft className="text-[#333] group-hover:text-[#C5A059] transition-colors" size={20} />
+             <ChevronLeft className="text-[#333] group-hover:text-[#C5A059] transition-colors" size={18} />
              <div className="flex flex-col">
-                <h1 className="font-serif text-xl text-white tracking-wide group-hover:text-[#C5A059] transition-colors">Muhammad Taaha</h1>
+                <h1 className="font-serif text-base sm:text-lg md:text-xl text-white tracking-wide group-hover:text-[#C5A059] transition-colors">Muhammad Taaha</h1>
              </div>
          </div>
          <button 
             onClick={onOpenResume}
-            className="flex items-center gap-2 bg-[#C5A059] hover:bg-[#D4AF37] text-black px-4 py-2 rounded-sm font-bold text-xs uppercase tracking-wider transition-all transform active:scale-95"
+            className="flex items-center gap-1.5 sm:gap-2 bg-[#C5A059] hover:bg-[#D4AF37] text-black px-3 sm:px-4 py-1.5 sm:py-2 rounded-sm font-bold text-[10px] sm:text-xs uppercase tracking-wider transition-all transform active:scale-95"
          >
-            <Download size={14} /> Export Resume
+            <Download size={12} className="hidden sm:block" /> 
+            <span className="hidden sm:inline">Export Resume</span>
+            <span className="sm:hidden">Resume</span>
          </button>
       </div>
 
       {/* 2. Move List (Annotated List) */}
       <div className="flex-1 overflow-y-auto custom-scrollbar p-0">
-        <div className="px-6 py-4">
-            <h3 className="font-mono text-[11px] uppercase text-[#666] tracking-widest mb-4">Move List</h3>
+        <div className="px-3 sm:px-4 md:px-6 py-3 sm:py-4">
+            <h3 className="font-mono text-[10px] sm:text-[11px] uppercase text-[#666] tracking-widest mb-3 sm:mb-4">Move List</h3>
             
             <div className="space-y-1">
                 {Object.values(categories).map((category) => {
@@ -103,7 +105,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                                     setHoveredCategory(null);
                                     onHoverCategory?.(null);
                                 }}
-                                className={`w-full flex items-center text-left py-4 px-4 rounded-sm transition-all duration-200 relative
+                                className={`w-full flex items-center text-left py-3 sm:py-4 px-3 sm:px-4 rounded-sm transition-all duration-200 relative
                                     ${isActive ? 'bg-[#252525]' : 'hover:bg-[#252525]'}
                                 `}
                             >
@@ -116,20 +118,20 @@ const Sidebar: React.FC<SidebarProps> = ({
                                 )}
 
                                 {/* Notation (Left) */}
-                                <span className={`font-mono text-xs w-16 ${isActive ? 'text-[#C5A059]' : 'text-[#666] group-hover:text-[#888]'}`}>
+                                <span className={`font-mono text-[10px] sm:text-xs w-12 sm:w-16 ${isActive ? 'text-[#C5A059]' : 'text-[#666] group-hover:text-[#888]'}`}>
                                     {category.notation}
                                 </span>
 
                                 {/* Title (Right) */}
                                 <div className="flex-1">
-                                    <span className={`font-sans text-base font-medium tracking-tight block ${isActive ? 'text-white' : 'text-[#BBB]'}`}>
+                                    <span className={`font-sans text-sm sm:text-base font-medium tracking-tight block ${isActive ? 'text-white' : 'text-[#BBB]'}`}>
                                         {category.label}
                                     </span>
                                     {isActive && (
                                         <motion.span 
                                             initial={{ opacity: 0 }}
                                             animate={{ opacity: 1 }}
-                                            className="text-[10px] text-[#666] font-mono mt-0.5 block"
+                                            className="text-[9px] sm:text-[10px] text-[#666] font-mono mt-0.5 block"
                                         >
                                             {category.description}
                                         </motion.span>
@@ -146,7 +148,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                                         exit={{ height: 0, opacity: 0 }}
                                         className="overflow-hidden bg-[#202020] border-t border-[#333]"
                                     >
-                                        <div className="pl-12 pr-4 py-3 space-y-0">
+                                        <div className="pl-8 sm:pl-12 pr-3 sm:pr-4 py-2 sm:py-3 space-y-0">
                                             {category.items.map((item, index) => {
                                                 const isItemActive = activeItem?.id === item.id;
                                                 const isLastItem = index === category.items.length - 1;
@@ -154,26 +156,26 @@ const Sidebar: React.FC<SidebarProps> = ({
                                                 return (
                                                     <div key={item.id} className="relative">
                                                         {/* Tree connector line */}
-                                                        <div className="absolute left-0 top-0 bottom-0 w-8 flex items-start pt-3">
+                                                        <div className="absolute left-0 top-0 bottom-0 w-6 sm:w-8 flex items-start pt-2 sm:pt-3">
                                                             {/* Vertical line */}
                                                             {!isLastItem && (
-                                                                <div className="absolute left-3 top-3 bottom-0 w-[2px] bg-[#555]"></div>
+                                                                <div className="absolute left-2 sm:left-3 top-2 sm:top-3 bottom-0 w-[2px] bg-[#555]"></div>
                                                             )}
                                                             {/* Horizontal line */}
                                                             <div className="flex items-center">
-                                                                <div className="w-3 h-[2px] bg-[#555]"></div>
-                                                                <div className={`w-2 h-2 rounded-full border-2 ${isItemActive ? 'bg-[#C5A059] border-[#C5A059]' : 'bg-[#1A1A1A] border-[#555]'}`}></div>
+                                                                <div className="w-2 sm:w-3 h-[2px] bg-[#555]"></div>
+                                                                <div className={`w-1.5 sm:w-2 h-1.5 sm:h-2 rounded-full border-2 ${isItemActive ? 'bg-[#C5A059] border-[#C5A059]' : 'bg-[#1A1A1A] border-[#555]'}`}></div>
                                                             </div>
                                                         </div>
                                                         
                                                         {/* Item button */}
                                                         <button
                                                             onClick={(e) => { e.stopPropagation(); onSelectItem(item); }}
-                                                            className={`w-full text-left py-2.5 pl-8 pr-3 rounded-sm transition-all duration-200 flex items-center justify-between group/item relative
+                                                            className={`w-full text-left py-2 sm:py-2.5 pl-6 sm:pl-8 pr-2 sm:pr-3 rounded-sm transition-all duration-200 flex items-center justify-between group/item relative
                                                                 ${isItemActive ? 'bg-[#2A2A2A] text-white' : 'text-[#888] hover:text-[#CCC] hover:bg-[#252525]'}
                                                             `}
                                                         >
-                                                            <span className={`text-sm font-sans transition-colors ${isItemActive ? 'text-[#C5A059] font-medium' : ''}`}>
+                                                            <span className={`text-xs sm:text-sm font-sans transition-colors ${isItemActive ? 'text-[#C5A059] font-medium' : ''}`}>
                                                                 {item.title}
                                                             </span>
                                                             {item.link && (

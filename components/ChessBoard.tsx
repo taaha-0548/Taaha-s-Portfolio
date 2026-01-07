@@ -148,7 +148,7 @@ const ChessBoard: React.FC<ChessBoardProps> = ({
   return (
     <div className="w-full h-full flex items-center justify-center relative">
       {/* Board Container: Responsive sizing that adapts to viewport */}
-      <div className="relative aspect-square w-auto h-full max-w-full max-h-full shadow-2xl rounded-sm overflow-hidden border-4 md:border-8 border-[#2A2A2A]">
+      <div className="relative aspect-square w-[min(80vw,calc(100vh-120px))] md:w-auto md:h-full md:max-w-full md:max-h-full shadow-2xl rounded-sm overflow-hidden border border-[#2A2A2A] sm:border-2 md:border-4 lg:border-8">
         <div className="grid grid-rows-8 h-full w-full">
           {[...Array(8)].map((_, rowIndex) => (
             <div key={rowIndex} className="grid grid-cols-8 h-full w-full">
@@ -166,10 +166,10 @@ const ChessBoard: React.FC<ChessBoardProps> = ({
                 return (
                   <div 
                     key={`${rowIndex}-${colIndex}`}
-                    className={`relative flex items-center justify-center text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl
+                    className={`relative flex items-center justify-center text-xl sm:text-2xl md:text-4xl lg:text-5xl xl:text-6xl
                       ${squareColor}
-                      ${highlight === 'white' ? 'ring-inset ring-2 md:ring-4 ring-[#C5A059]' : ''}
-                      ${highlight === 'black' ? 'ring-inset ring-2 md:ring-4 ring-[#2A9D8F]' : ''}
+                      ${highlight === 'white' ? 'ring-inset ring-1 sm:ring-2 md:ring-4 ring-[#C5A059]' : ''}
+                      ${highlight === 'black' ? 'ring-inset ring-1 sm:ring-2 md:ring-4 ring-[#2A9D8F]' : ''}
                     `}
                   >
                     {/* Render Piece if it exists at this location */}

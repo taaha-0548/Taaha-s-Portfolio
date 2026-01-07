@@ -26,7 +26,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart, onOpenResume }) => {
         <div className="relative z-10 max-w-5xl w-full flex flex-col items-center gap-8 md:gap-12">
             
             {/* Profile Image & Socials Wrapper */}
-            <div className="flex items-center gap-8 md:gap-12">
+            <div className="flex items-center gap-6 sm:gap-8 md:gap-12">
                 
                 {/* GitHub (Left) */}
                 <a 
@@ -36,11 +36,11 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart, onOpenResume }) => {
                     className="text-neutral-500 hover:text-[#A855F7] transition-all duration-300 transform hover:scale-110 hover:-translate-y-1"
                     title="GitHub"
                 >
-                    <Github size={28} strokeWidth={1.5} />
+                    <Github size={24} strokeWidth={1.5} className="sm:w-7 sm:h-7" />
                 </a>
 
                 {/* Profile Picture */}
-                <div className="relative w-32 h-32 md:w-48 md:h-48 rounded-full overflow-hidden border border-neutral-800 shadow-2xl group cursor-pointer">
+                <div className="relative w-24 h-24 sm:w-32 sm:h-32 md:w-48 md:h-48 rounded-full overflow-hidden border border-neutral-800 shadow-2xl group cursor-pointer">
                     <div className="absolute inset-0 bg-neutral-900 animate-pulse" />
                     <img 
                         src={PROFILE_IMAGE_URL} 
@@ -59,30 +59,30 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart, onOpenResume }) => {
                     className="text-neutral-500 hover:text-[#0A66C2] transition-all duration-300 transform hover:scale-110 hover:-translate-y-1"
                     title="LinkedIn"
                 >
-                    <Linkedin size={28} strokeWidth={1.5} />
+                    <Linkedin size={24} strokeWidth={1.5} className="sm:w-7 sm:h-7" />
                 </a>
             </div>
 
             {/* Hero Typography - High Contrast */}
             <div className="flex flex-col items-center gap-4">
-                <h1 className="text-5xl md:text-8xl lg:text-9xl font-serif font-medium text-white tracking-tighter leading-[0.9] text-nowrap">
+                <h1 className="text-4xl sm:text-5xl md:text-8xl lg:text-9xl font-serif font-medium text-white tracking-tighter leading-[0.9] text-center px-4">
                     Muhammad Taaha
                 </h1>
-                <p className="text-neutral-400 text-lg md:text-xl font-mono tracking-wide">
+                <p className="text-neutral-400 text-base sm:text-lg md:text-xl font-mono tracking-wide">
                     Building Systems, Solving Problems
                 </p>
             </div>
             
             {/* Value Proposition */}
-            <p className="text-neutral-400 text-base md:text-lg max-w-2xl font-sans leading-relaxed tracking-wide text-center">
+            <p className="text-neutral-400 text-sm sm:text-base md:text-lg max-w-2xl font-sans leading-relaxed tracking-wide text-center px-4">
                 Computer Science student at FAST-NUCES researching <span className="text-white border-b border-white/20 pb-0.5">algorithmic challenges</span> and contributing to <span className="text-white border-b border-white/20 pb-0.5">open source</span>.
             </p>
 
             {/* Actions */}
-            <div className="flex flex-col sm:flex-row items-center gap-5 mt-4 w-full sm:w-auto">
+            <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-5 mt-4 w-full sm:w-auto px-4">
                 <button 
                     onClick={onStart}
-                    className="w-full sm:w-auto group relative overflow-hidden bg-white text-black px-10 py-4 font-mono text-xs font-bold uppercase tracking-widest hover:bg-neutral-200 transition-colors"
+                    className="w-full sm:w-auto group relative overflow-hidden bg-white text-black px-8 sm:px-10 py-3 sm:py-4 font-mono text-xs font-bold uppercase tracking-widest hover:bg-neutral-200 transition-colors"
                 >
                     <span className="relative z-10 flex items-center justify-center gap-3">
                         Initialize Game <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
@@ -91,7 +91,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart, onOpenResume }) => {
                 
                 <button 
                     onClick={onOpenResume}
-                    className="w-full sm:w-auto px-10 py-4 border border-neutral-800 text-neutral-400 font-mono text-xs uppercase tracking-widest hover:border-white hover:text-white transition-all flex items-center justify-center gap-3"
+                    className="w-full sm:w-auto px-8 sm:px-10 py-3 sm:py-4 border border-neutral-800 text-neutral-400 font-mono text-xs uppercase tracking-widest hover:border-white hover:text-white transition-all flex items-center justify-center gap-3"
                 >
                     <FileText size={14} />
                     Export Resume
