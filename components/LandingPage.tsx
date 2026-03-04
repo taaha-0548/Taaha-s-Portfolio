@@ -23,10 +23,10 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart, onOpenResume }) => {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-white/5 rounded-full blur-[100px] pointer-events-none"></div>
 
         {/* Layer 3: Main Content */}
-        <div className="relative z-10 max-w-5xl w-full flex flex-col items-center gap-8 md:gap-12">
+        <div className="relative z-10 max-w-5xl w-full flex flex-col items-center gap-6 md:gap-8">
             
             {/* Profile Image & Socials Wrapper */}
-            <div className="flex items-center gap-6 sm:gap-8 md:gap-12">
+            <div className="flex items-center gap-6 sm:gap-8 md:gap-10">
                 
                 {/* GitHub (Left) */}
                 <a 
@@ -40,7 +40,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart, onOpenResume }) => {
                 </a>
 
                 {/* Profile Picture */}
-                <div className="relative w-24 h-24 sm:w-32 sm:h-32 md:w-48 md:h-48 rounded-full overflow-hidden border border-neutral-800 shadow-2xl group cursor-pointer">
+                <div className="relative w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40 rounded-full overflow-hidden border border-neutral-800 shadow-2xl group cursor-pointer">
                     <div className="absolute inset-0 bg-neutral-900 animate-pulse" />
                     <img 
                         src={PROFILE_IMAGE_URL} 
@@ -64,11 +64,11 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart, onOpenResume }) => {
             </div>
 
             {/* Hero Typography - High Contrast */}
-            <div className="flex flex-col items-center gap-4">
-                <h1 className="text-4xl sm:text-5xl md:text-8xl lg:text-9xl font-serif font-medium text-white tracking-tighter leading-[0.9] text-center px-4">
+            <div className="flex flex-col items-center gap-3 md:gap-4">
+                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-medium text-white tracking-tighter leading-[0.9] text-center px-4">
                     Muhammad Taaha
                 </h1>
-                <p className="text-neutral-400 text-base sm:text-lg md:text-xl font-mono tracking-wide">
+                <p className="text-neutral-400 text-base sm:text-lg md:text-lg font-mono tracking-wide">
                     Building Systems, Solving Problems
                 </p>
             </div>
