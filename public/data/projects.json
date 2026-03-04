@@ -7,47 +7,101 @@
   "items": [
     {
       "id": "p1",
-      "title": "Uni-verse",
-      "subtitle": "AI-Powered University Discovery Platform",
-      "description": "Developed a data-driven platform acknowledged by technology CEOs for bridging information gaps for thousands of prospective students. Engineered an intelligent matching algorithm using SQLAlchemy to filter program combinations based on academic qualifications and financial data. Architected a high-performance backend with Flask and PostgreSQL optimized for multi-variable relational queries.",
-      "techStack": ["Flask", "PostgreSQL", "SQLAlchemy", "Python"],
-      "badges": ["Industry Commended", "Aug 2025"],
-      "complexityScore": 8.8,
-      "link": "https://github.com/taaha-0548/Uni-verse",
-      "chessMove": { "pieceId": "bp-2", "to": [3, 2] }
+      "title": "Stack",
+      "subtitle": "Digital Social Card App",
+      "description": "Designed and deployed a production-grade Android application enabling selective QR-based sharing of social profiles for live networking. Architected a mobile-first cross-platform system with dynamic QR generation, deep-link validation, and offline-first local data persistence.",
+      "techStack": [
+        "React",
+        "TypeScript",
+        "Capacitor",
+        "Vite"
+      ],
+      "badges": [
+        "Live on Play Store",
+        "Feb 2026"
+      ],
+      "complexityScore": 9.0,
+      "link": "https://play.google.com/store/apps/details?id=com.stackcard.app",
+      "chessMove": {
+        "pieceId": "bp-2",
+        "to": [
+          3,
+          2
+        ]
+      }
     },
     {
       "id": "p2",
       "title": "p2pdocs",
       "subtitle": "Decentralized Real-time Collaborative Editor",
       "description": "Engineered a serverless editing platform utilizing CRDT (RGA) algorithms for guaranteed state convergence across decentralized nodes. Built a thread-safe hybrid networking layer (UDP/TCP) for automated peer discovery and reliable low-latency synchronization on local networks. Published a zero-dependency package on PyPI, featuring locking mechanisms for concurrent UI and network operations.",
-      "techStack": ["Python", "CRDT", "UDP/TCP", "Threading"],
-      "badges": ["PyPI Published", "Nov 2025"],
+      "techStack": [
+        "Python",
+        "CRDT",
+        "UDP/TCP",
+        "Threading"
+      ],
+      "badges": [
+        "PyPI Published",
+        "Nov 2025"
+      ],
       "complexityScore": 9.5,
       "link": "https://github.com/taaha-0548/P2PDocs",
-      "chessMove": { "pieceId": "bp-4", "to": [2, 4] }
+      "chessMove": {
+        "pieceId": "bp-4",
+        "to": [
+          2,
+          4
+        ]
+      }
     },
     {
       "id": "p3",
       "title": "Sénior",
       "subtitle": "Workflow-Automated Mentorship Ecosystem",
-      "description": "Scaled an academic platform using a State-Driven Architecture (Verification → Match → Completion) to connect juniors with verified mentors. Integrated Brevo API for automated scheduling and transactional alerts, reducing manual administrative overhead by 90%. Designed a responsive React 18 frontend with admin verification gates to ensure ecosystem integrity.",
-      "techStack": ["React 18", "Brevo API", "State Management", "Node.js"],
-      "badges": ["90% Efficiency Gain", "Nov 2025"],
+      "description": "Scaled an academic platform using a State-Driven Architecture (Verification → Match → Completion) to connect juniors with verified mentors. Designed a responsive React 18 frontend with admin verification gates to ensure ecosystem integrity.",
+      "techStack": [
+        "React 18",
+        "State Management",
+        "Node.js"
+      ],
+      "badges": [
+        "Nov 2025"
+      ],
       "complexityScore": 8.2,
       "link": "https://github.com/taaha-0548/S-nior",
-      "chessMove": { "pieceId": "bp-2", "to": [2, 2] }
+      "chessMove": {
+        "pieceId": "bp-2",
+        "to": [
+          2,
+          2
+        ]
+      }
     },
     {
       "id": "p4",
       "title": "Guardian",
       "subtitle": "Mission-Critical Student Safety Portal",
       "description": "Developed a secure communication hub for 400+ users, integrating Role-Based Access Control (RBAC) for emergency data protection. Utilized Google Sheets API as a live, dynamic backend for real-time updates without the need for code redeployment. Engineered an admin-controlled Emergency Mode to override privacy filters and expose critical details during city-wide crises.",
-      "techStack": ["React Native", "Google Sheets API", "RBAC", "JavaScript"],
-      "badges": ["400+ Users", "Aug 2025"],
+      "techStack": [
+        "React Native",
+        "Google Sheets API",
+        "RBAC",
+        "JavaScript"
+      ],
+      "badges": [
+        "400+ Users",
+        "Aug 2025"
+      ],
       "complexityScore": 7.8,
       "link": "https://github.com/taaha-0548/Guardian",
-      "chessMove": { "pieceId": "bp-3", "to": [3, 3] }
+      "chessMove": {
+        "pieceId": "bp-3",
+        "to": [
+          3,
+          3
+        ]
+      }
     }
   ]
 }
