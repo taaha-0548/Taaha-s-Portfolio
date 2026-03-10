@@ -4,42 +4,76 @@
   "notation": "1. Nc3",
   "pieceType": "Knight",
   "description": "Connect & Network.",
+  "commentary": "The Queen's Knight Opening. Developing pieces early! Your network is your most flexible asset. !",
+  "moveGrade": "GOOD",
   "items": [
     {
       "id": "soc1",
       "title": "LinkedIn",
       "subtitle": "Professional Network",
       "description": "Connect with me professionally. Follow my career journey, project updates, and industry insights. Open to collaboration and networking opportunities.",
+      "moveGrade": "BRILLIANT",
+      "commentary": "Brilliant Move! Your LinkedIn presence is a key part of your strategic network. !!",
       "link": "https://www.linkedin.com/in/muhammad-taaha-6ba8b7286/",
       "complexityScore": 3.0,
-      "chessMove": { "pieceId": "bp-4", "to": [3, 4] }
+      "chessMove": {
+        "pieceId": "bp-4",
+        "to": [
+          3,
+          4
+        ]
+      }
     },
     {
       "id": "soc2",
       "title": "GitHub",
       "subtitle": "Code Repository",
       "description": "Explore my open-source projects and contributions. Check out implementations of distributed systems, web applications, and algorithmic solutions. All code is well-documented and production-ready.",
+      "moveGrade": "BEST",
+      "commentary": "Best move! GitHub is where the real tactics happen. Your contributions are top-tier. !",
       "link": "https://github.com/taaha-0548",
       "complexityScore": 9.0,
-      "chessMove": { "pieceId": "bp-3", "to": [3, 3] }
+      "chessMove": {
+        "pieceId": "bp-3",
+        "to": [
+          3,
+          3
+        ]
+      }
     },
     {
       "id": "soc3",
       "title": "Medium",
       "subtitle": "Technical Blog",
       "description": "Read my technical articles on system design, engineering patterns, and software architecture. I write about real-world implementation challenges and solutions.",
+      "moveGrade": "GOOD",
+      "commentary": "A good positional move. Sharing knowledge on Medium builds a strong endgame. !",
       "link": "https://medium.com/@taaha2004",
       "complexityScore": 5.0,
-      "chessMove": { "pieceId": "bp-2", "to": [3, 2] }
+      "chessMove": {
+        "pieceId": "bp-2",
+        "to": [
+          3,
+          2
+        ]
+      }
     },
     {
       "id": "soc4",
       "title": "Email",
       "subtitle": "Direct Contact",
       "description": "For professional inquiries, collaboration opportunities, or just to say hi. I respond to all genuine messages within 24 hours.",
+      "moveGrade": "BEST",
+      "commentary": "Best way to reach out. Direct communication is the most effective tactic. !",
       "link": "mailto:taaha2004@gmail.com",
       "complexityScore": 1.0,
-      "chessMove": { "pieceId": "bp-6", "to": [2, 6] }
+      "chessMove": {
+        "pieceId": "bp-6",
+        "to": [
+          2,
+          6
+        ]
+      }
     }
   ]
 }

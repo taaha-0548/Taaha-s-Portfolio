@@ -3,11 +3,15 @@ export type Page = 'LANDING' | 'HUB' | 'BLOG' | 'ABOUT';
 
 export type CategoryType = 'PROJECTS' | 'RESEARCH' | 'SOCIALS' | 'INTERESTS' | 'ABOUT' | 'LEADERSHIP';
 
+export type MoveGrade = 'BRILLIANT' | 'GREAT' | 'BOOK' | 'GOOD' | 'INACCURACY' | 'BEST';
+
 export interface PortfolioItem {
   id: string;
   title: string;
   subtitle?: string;
   description: string;
+  commentary?: string; // What the Grandmaster says
+  moveGrade?: MoveGrade; // Quality of the move
   techStack?: string[];
   link?: string;
   imageUrl?: string;
@@ -26,6 +30,8 @@ export interface Category {
   pieceType: string; // e.g., 'Pawn', 'Knight'
   description: string;
   items: PortfolioItem[];
+  commentary?: string; // What the Grandmaster says about this category
+  moveGrade?: MoveGrade; // Optional grade for the overall category
 }
 
 export interface GameState {

@@ -4,12 +4,16 @@
   "notation": "1. e4",
   "pieceType": "Queen",
   "description": "Major implementations.",
+  "commentary": "The King's Pawn Opening! Bold and direct. These projects are the front lines of your tactical dominance. !!",
+  "moveGrade": "BRILLIANT",
   "items": [
     {
       "id": "p1",
       "title": "Stack",
       "subtitle": "Digital Social Card App",
       "description": "Designed and deployed a production-grade Android application enabling selective QR-based sharing of social profiles for live networking. Architected a mobile-first cross-platform system with dynamic QR generation, deep-link validation, and offline-first local data persistence.",
+      "moveGrade": "BRILLIANT",
+      "commentary": "Brilliant! Deploying a production-grade app for live networking is a masterclass in tactical execution. !!",
       "techStack": [
         "React",
         "TypeScript",
@@ -35,6 +39,8 @@
       "title": "p2pdocs",
       "subtitle": "Decentralized Real-time Collaborative Editor",
       "description": "Engineered a serverless editing platform utilizing CRDT (RGA) algorithms for guaranteed state convergence across decentralized nodes. Built a thread-safe hybrid networking layer (UDP/TCP) for automated peer discovery and reliable low-latency synchronization on local networks. Published a zero-dependency package on PyPI, featuring locking mechanisms for concurrent UI and network operations.",
+      "moveGrade": "BEST",
+      "commentary": "A solid positional move. Decentralised CRDTs are notoriously difficult to coordinate—great technique! !",
       "techStack": [
         "Python",
         "CRDT",
@@ -60,6 +66,8 @@
       "title": "Sénior",
       "subtitle": "Workflow-Automated Mentorship Ecosystem",
       "description": "Scaled an academic platform using a State-Driven Architecture (Verification → Match → Completion) to connect juniors with verified mentors. Designed a responsive React 18 frontend with admin verification gates to ensure ecosystem integrity.",
+      "moveGrade": "GOOD",
+      "commentary": "A good developing move! Scaling an academic ecosystem requires careful preparation. !",
       "techStack": [
         "React 18",
         "State Management",
@@ -83,6 +91,8 @@
       "title": "Guardian",
       "subtitle": "Mission-Critical Student Safety Portal",
       "description": "Developed a secure communication hub for 400+ users, integrating Role-Based Access Control (RBAC) for emergency data protection. Utilized Google Sheets API as a live, dynamic backend for real-time updates without the need for code redeployment. Engineered an admin-controlled Emergency Mode to override privacy filters and expose critical details during city-wide crises.",
+      "moveGrade": "GREAT",
+      "commentary": "Great tactical awareness. Managing 400+ users in crisis mode is a high-pressure scenario handled well. !",
       "techStack": [
         "React Native",
         "Google Sheets API",

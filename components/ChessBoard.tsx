@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { CATEGORIES } from '../constants';
 import { CategoryType, PortfolioItem } from '../types';
 
@@ -19,21 +19,21 @@ interface PieceState {
 // Helper to generate initial piece set with IDs
 const generatePieces = (): PieceState[] => {
   const pieces: PieceState[] = [];
-  
+
   // Black Major Pieces (Row 0)
   const blackMajors = ['r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'];
   blackMajors.forEach((type, col) => pieces.push({ id: `b-major-${col}`, type, startPos: [0, col] }));
-  
+
   // Black Pawns (Row 1)
   for (let col = 0; col < 8; col++) pieces.push({ id: `bp-${col}`, type: 'p', startPos: [1, col] });
-  
+
   // White Pawns (Row 6)
   for (let col = 0; col < 8; col++) pieces.push({ id: `wp-${col}`, type: 'P', startPos: [6, col] });
-  
+
   // White Major Pieces (Row 7)
   const whiteMajors = ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'];
   whiteMajors.forEach((type, col) => pieces.push({ id: `w-major-${col}`, type, startPos: [7, col] }));
-  
+
   return pieces;
 };
 
@@ -41,40 +41,40 @@ const INITIAL_PIECES = generatePieces();
 
 // Configuration for moves
 // Coordinates: [Row, Col]. 0,0 is Top Left (a8). 7,7 is Bottom Right (h1).
-const MOVE_CONFIG: Record<CategoryType, { 
-    white: { pieceId: string, to: [number, number] }, 
-    black: { pieceId: string, to: [number, number] } 
+const MOVE_CONFIG: Record<CategoryType, {
+  white: { pieceId: string, to: [number, number] },
+  black: { pieceId: string, to: [number, number] }
 }> = {
-    PROJECTS: { 
-        // 1. e4 (Projects)
-        white: { pieceId: 'wp-4', to: [4, 4] }, // e2 -> e4
-        black: { pieceId: 'bp-2', to: [3, 2] }  // c5 response (default if no item selected)
-    },
-    RESEARCH: {
-        // 1. d4 (Research)
-        white: { pieceId: 'wp-3', to: [5, 3] }, // d2 -> d4
-        black: { pieceId: 'bp-3', to: [3, 3] }  // d5 response
-    },
-    SOCIALS: {
-        // 1. Nc3 (Socials)
-        white: { pieceId: 'w-major-1', to: [5, 2] }, // b1 -> c3
-        black: { pieceId: 'bp-4', to: [3, 4] }  // e5 response
-    },
-    INTERESTS: {
-        // 1. c4 (Interests - English Opening)
-        white: { pieceId: 'wp-2', to: [4, 2] }, // c2 -> c4
-        black: { pieceId: 'bp-4', to: [3, 4] }  // e5 response
-    },
-    ABOUT: {
-        // 1. Nf3 (About Me - Reti)
-        white: { pieceId: 'w-major-6', to: [5, 5] }, // g1 -> f3
-        black: { pieceId: 'bp-3', to: [3, 3] }  // d5 response
-    },
-    LEADERSHIP: {
-        // 1. f4 (Leadership - Bird's Opening)
-        white: { pieceId: 'wp-5', to: [4, 5] }, // f2 -> f4
-        black: { pieceId: 'bp-4', to: [3, 4] }  // e5 response
-    }
+  PROJECTS: {
+    // 1. e4 (Projects)
+    white: { pieceId: 'wp-4', to: [4, 4] }, // e2 -> e4
+    black: { pieceId: 'bp-2', to: [3, 2] }  // c5 response (default if no item selected)
+  },
+  RESEARCH: {
+    // 1. d4 (Research)
+    white: { pieceId: 'wp-3', to: [5, 3] }, // d2 -> d4
+    black: { pieceId: 'bp-3', to: [3, 3] }  // d5 response
+  },
+  SOCIALS: {
+    // 1. Nc3 (Socials)
+    white: { pieceId: 'w-major-1', to: [5, 2] }, // b1 -> c3
+    black: { pieceId: 'bp-4', to: [3, 4] }  // e5 response
+  },
+  INTERESTS: {
+    // 1. c4 (Interests - English Opening)
+    white: { pieceId: 'wp-2', to: [4, 2] }, // c2 -> c4
+    black: { pieceId: 'bp-4', to: [3, 4] }  // e5 response
+  },
+  ABOUT: {
+    // 1. Nf3 (About Me - Reti)
+    white: { pieceId: 'w-major-6', to: [5, 5] }, // g1 -> f3
+    black: { pieceId: 'bp-3', to: [3, 3] }  // d5 response
+  },
+  LEADERSHIP: {
+    // 1. f4 (Leadership - Bird's Opening)
+    white: { pieceId: 'wp-5', to: [4, 5] }, // f2 -> f4
+    black: { pieceId: 'bp-4', to: [3, 4] }  // e5 response
+  }
 };
 
 interface ChessBoardProps {
@@ -84,65 +84,65 @@ interface ChessBoardProps {
   hoveredCategory?: CategoryType | null;
 }
 
-const ChessBoard: React.FC<ChessBoardProps> = ({ 
-  activeCategory, 
-  activeItem, 
+const ChessBoard: React.FC<ChessBoardProps> = ({
+  activeCategory,
+  activeItem,
   onSelectCategory,
-  hoveredCategory 
+  hoveredCategory
 }) => {
-  
+
   // Calculate current position of all pieces based on state
   const currentPieces = useMemo(() => {
-      const positions = new Map<string, [number, number]>(); // Map pieceId to [row, col]
-      
-      // Default positions
-      INITIAL_PIECES.forEach(p => positions.set(p.id, p.startPos));
+    const positions = new Map<string, [number, number]>(); // Map pieceId to [row, col]
 
-      if (activeCategory) {
-          const move = MOVE_CONFIG[activeCategory];
-          if (move) {
-              // Apply White Move
-              positions.set(move.white.pieceId, move.white.to);
+    // Default positions
+    INITIAL_PIECES.forEach(p => positions.set(p.id, p.startPos));
 
-              if (activeItem) {
-                  // Apply Black Move
-                  // If item has a specific move defined, use it. Otherwise use category default.
-                  if (activeItem.chessMove) {
-                    positions.set(activeItem.chessMove.pieceId, activeItem.chessMove.to);
-                  } else {
-                    positions.set(move.black.pieceId, move.black.to);
-                  }
-              }
+    if (activeCategory) {
+      const move = MOVE_CONFIG[activeCategory];
+      if (move) {
+        // Apply White Move
+        positions.set(move.white.pieceId, move.white.to);
+
+        if (activeItem) {
+          // Apply Black Move
+          // If item has a specific move defined, use it. Otherwise use category default.
+          if (activeItem.chessMove) {
+            positions.set(activeItem.chessMove.pieceId, activeItem.chessMove.to);
+          } else {
+            positions.set(move.black.pieceId, move.black.to);
           }
+        }
       }
-      return positions;
+    }
+    return positions;
   }, [activeCategory, activeItem]);
 
   // Helper to check if a piece should pulse (when category is hovered)
   const shouldPiecePulse = (pieceId: string) => {
-      if (!hoveredCategory || activeCategory) return false;
-      const move = MOVE_CONFIG[hoveredCategory];
-      return move && (move.white.pieceId === pieceId || move.black.pieceId === pieceId);
+    if (!hoveredCategory || activeCategory) return false;
+    const move = MOVE_CONFIG[hoveredCategory];
+    return move && (move.white.pieceId === pieceId || move.black.pieceId === pieceId);
   };
 
   // Highlight logic for squares
   const getHighlight = (r: number, c: number) => {
-      if (!activeCategory) return false;
-      const move = MOVE_CONFIG[activeCategory];
-      
-      // Highlight White's destination
-      if (move.white.to[0] === r && move.white.to[1] === c) return 'white';
-      
-      // Highlight Black's destination if item active
-      if (activeItem) {
-          if (activeItem.chessMove) {
-              if (activeItem.chessMove.to[0] === r && activeItem.chessMove.to[1] === c) return 'black';
-          } else {
-              if (move.black.to[0] === r && move.black.to[1] === c) return 'black';
-          }
+    if (!activeCategory) return false;
+    const move = MOVE_CONFIG[activeCategory];
+
+    // Highlight White's destination
+    if (move.white.to[0] === r && move.white.to[1] === c) return 'white';
+
+    // Highlight Black's destination if item active
+    if (activeItem) {
+      if (activeItem.chessMove) {
+        if (activeItem.chessMove.to[0] === r && activeItem.chessMove.to[1] === c) return 'black';
+      } else {
+        if (move.black.to[0] === r && move.black.to[1] === c) return 'black';
       }
-      
-      return null;
+    }
+
+    return null;
   };
 
   return (
@@ -156,15 +156,15 @@ const ChessBoard: React.FC<ChessBoardProps> = ({
                 const isBlackSquare = (rowIndex + colIndex) % 2 === 1;
                 const squareColor = isBlackSquare ? 'bg-[#404040]' : 'bg-[#E5E5E5]';
                 const highlight = getHighlight(rowIndex, colIndex);
-                
+
                 // Find piece at this square
                 const pieceAtSquare = INITIAL_PIECES.find(p => {
-                    const pos = currentPieces.get(p.id);
-                    return pos && pos[0] === rowIndex && pos[1] === colIndex;
+                  const pos = currentPieces.get(p.id);
+                  return pos && pos[0] === rowIndex && pos[1] === colIndex;
                 });
 
                 return (
-                  <div 
+                  <div
                     key={`${rowIndex}-${colIndex}`}
                     className={`relative flex items-center justify-center text-xl sm:text-2xl md:text-4xl lg:text-5xl xl:text-6xl
                       ${squareColor}
@@ -176,38 +176,82 @@ const ChessBoard: React.FC<ChessBoardProps> = ({
                     {pieceAtSquare && (
                       <motion.span
                         layoutId={pieceAtSquare.id} // This is the magic prop for movement animation
-                        transition={{ type: "spring", bounce: 0.2, duration: 0.8 }}
                         animate={shouldPiecePulse(pieceAtSquare.id) ? {
-                            scale: [1, 1.15, 1],
-                            opacity: [1, 0.7, 1]
+                          scale: [1, 1.15, 1],
+                          opacity: [1, 0.7, 1]
                         } : {}}
                         transition={{
-                            scale: { duration: 1.2, repeat: Infinity, ease: "easeInOut" },
-                            opacity: { duration: 1.2, repeat: Infinity, ease: "easeInOut" }
+                          // Spring transition for the layoutId movement
+                          type: "spring",
+                          bounce: 0.2,
+                          duration: 0.8,
+                          // Separate looping transition for the pulse animation
+                          scale: { duration: 1.2, repeat: Infinity, ease: "easeInOut" },
+                          opacity: { duration: 1.2, repeat: Infinity, ease: "easeInOut" }
                         }}
                         className={`relative z-10 select-none font-serif
                             ${pieceAtSquare.type === pieceAtSquare.type.toUpperCase() ? 'text-[#FAFAFA]' : 'text-black'}
                         `}
-                        style={{ 
-                            filter: pieceAtSquare.type === pieceAtSquare.type.toUpperCase() 
-                                ? 'drop-shadow(0px 2px 1px rgba(0,0,0,0.6))' 
-                                : 'drop-shadow(0px 1px 0px rgba(255,255,255,0.3))'
+                        style={{
+                          filter: pieceAtSquare.type === pieceAtSquare.type.toUpperCase()
+                            ? 'drop-shadow(0px 2px 1px rgba(0,0,0,0.6))'
+                            : 'drop-shadow(0px 1px 0px rgba(255,255,255,0.3))'
                         }}
                       >
                         {PIECES[pieceAtSquare.type]}
                       </motion.span>
                     )}
-                    
+
+                    {/* Move Grade Symbols (chess.com style) */}
+                    <AnimatePresence>
+                      {activeItem && highlight === 'black' && (
+                        <motion.div
+                          initial={{ scale: 0, opacity: 0 }}
+                          animate={{ scale: 1, opacity: 1 }}
+                          exit={{ scale: 0, opacity: 0 }}
+                          className="absolute -top-1 -right-1 md:-top-2 md:-right-2 z-20"
+                        >
+                          {activeItem.moveGrade === 'BRILLIANT' && (
+                            <div className="w-5 h-5 md:w-8 md:h-8 rounded-full bg-[#26D5CE] flex items-center justify-center shadow-lg border-2 border-white/20">
+                              <span className="text-white text-[10px] md:text-sm font-bold leading-none">!!</span>
+                            </div>
+                          )}
+                          {activeItem.moveGrade === 'BEST' && (
+                            <div className="w-5 h-5 md:w-8 md:h-8 rounded-full bg-[#98BC4B] flex items-center justify-center shadow-lg border-2 border-white/20">
+                              <svg viewBox="0 0 24 24" className="w-3 h-3 md:w-5 md:h-5 text-white fill-current">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                              </svg>
+                            </div>
+                          )}
+                          {activeItem.moveGrade === 'GREAT' && (
+                            <div className="w-5 h-5 md:w-8 md:h-8 rounded-full bg-[#5B8BB0] flex items-center justify-center shadow-lg border-2 border-white/20">
+                              <span className="text-white text-[10px] md:text-sm font-bold leading-none">!</span>
+                            </div>
+                          )}
+                          {activeItem.moveGrade === 'GOOD' && (
+                            <div className="w-5 h-5 md:w-8 md:h-8 rounded-full bg-[#98BC4B] flex items-center justify-center shadow-lg border-2 border-white/20 opacity-80">
+                              <div className="w-1.5 h-1.5 md:w-2.5 md:h-2.5 bg-white rounded-full"></div>
+                            </div>
+                          )}
+                          {activeItem.moveGrade === 'INACCURACY' && (
+                            <div className="w-5 h-5 md:w-8 md:h-8 rounded-full bg-[#F4BF34] flex items-center justify-center shadow-lg border-2 border-white/20">
+                              <span className="text-white text-[10px] md:text-sm font-bold leading-none">?!</span>
+                            </div>
+                          )}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+
                     {/* Rank/File Labels (Optional nice touch for PGN viewer vibe) */}
                     {colIndex === 0 && (
-                        <span className={`absolute left-0.5 top-0.5 text-[6px] sm:text-[8px] font-mono ${isBlackSquare ? 'text-[#666]' : 'text-[#999]'}`}>
-                            {8 - rowIndex}
-                        </span>
+                      <span className={`absolute left-0.5 top-0.5 text-[6px] sm:text-[8px] font-mono ${isBlackSquare ? 'text-[#666]' : 'text-[#999]'}`}>
+                        {8 - rowIndex}
+                      </span>
                     )}
                     {rowIndex === 7 && (
-                        <span className={`absolute right-0.5 bottom-0 text-[6px] sm:text-[8px] font-mono ${isBlackSquare ? 'text-[#666]' : 'text-[#999]'}`}>
-                            {String.fromCharCode(97 + colIndex)}
-                        </span>
+                      <span className={`absolute right-0.5 bottom-0 text-[6px] sm:text-[8px] font-mono ${isBlackSquare ? 'text-[#666]' : 'text-[#999]'}`}>
+                        {String.fromCharCode(97 + colIndex)}
+                      </span>
                     )}
                   </div>
                 );

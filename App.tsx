@@ -17,13 +17,13 @@ const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [hoveredCategory, setHoveredCategory] = useState<CategoryType | null>(null);
-  
+
   // Load portfolio data from JSON
   const { categories, isLoading: dataLoading } = usePortfolioData();
-  
+
   // Mobile Nav State
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
-  
+
   // Check if user needs onboarding
   useEffect(() => {
     const hasSeenOnboarding = localStorage.getItem('portfolio-onboarding-completed');
@@ -33,12 +33,12 @@ const App: React.FC = () => {
   }, [currentPage]);
 
   const handleStartGame = () => {
-      setIsLoading(true);
-      // Simulate loading time for effect (and to read the joke)
-      setTimeout(() => {
-          setIsLoading(false);
-          handleNavigate('HUB');
-      }, 2500);
+    setIsLoading(true);
+    // Simulate loading time for effect (and to read the joke)
+    setTimeout(() => {
+      setIsLoading(false);
+      handleNavigate('HUB');
+    }, 2500);
   };
 
   const handleNavigate = (page: Page) => {
@@ -48,12 +48,12 @@ const App: React.FC = () => {
   };
 
   const handleHome = () => {
-      setIsLoading(true);
-      // Trigger loading spinner when returning to Landing Page
-      setTimeout(() => {
-          setIsLoading(false);
-          handleNavigate('LANDING');
-      }, 2500);
+    setIsLoading(true);
+    // Trigger loading spinner when returning to Landing Page
+    setTimeout(() => {
+      setIsLoading(false);
+      handleNavigate('LANDING');
+    }, 2500);
   };
 
   const handleSelectCategory = (cat: CategoryType) => {
@@ -63,7 +63,7 @@ const App: React.FC = () => {
       setActiveItem(null);
       // Reset to starting position
       setActiveCategory(null);
-      
+
       // Wait for animation, then select new category
       setTimeout(() => {
         setActiveCategory(cat);
@@ -83,12 +83,12 @@ const App: React.FC = () => {
     if (activeItem && activeItem.id !== item.id) {
       // Close current item
       setActiveItem(null);
-      
+
       // Wait for animation, then show new item
       setTimeout(() => {
         setActiveItem(item);
         setIsMobileNavOpen(false); // Close nav on mobile to show content
-      }, 700); // Longer delay to ensure old modal fades out completely
+      }, 500); // Reduced from 700ms to 400ms for snappier feedback
     } else {
       // First item selection
       setActiveItem(item);
@@ -102,32 +102,32 @@ const App: React.FC = () => {
 
   return (
     <div className="h-screen w-screen bg-[#1A1A1A] text-white font-sans selection:bg-[#C5A059] selection:text-black overflow-hidden flex flex-col">
-      
+
       {/* Loading Overlay */}
       {isLoading && <LoadingScreen />}
 
       {currentPage === 'LANDING' ? (
-        <LandingPage 
-            onStart={handleStartGame} 
-            onOpenResume={() => setIsResumeOpen(true)}
+        <LandingPage
+          onStart={handleStartGame}
+          onOpenResume={() => setIsResumeOpen(true)}
         />
       ) : (
         <div className="flex-1 flex flex-col md:flex-row h-full overflow-hidden relative">
-            
-            {/* 1. Visual Stage (Desktop: Left 65%, Mobile: Top Layer) */}
-            <div className="flex-1 md:basis-[65%] lg:basis-[70%] h-full relative z-0">
-                <VisualStage 
-                    activeCategory={activeCategory} 
-                    activeItem={activeItem}
-                    onSelectCategory={handleSelectCategory}
-                    onClearSelection={() => setActiveItem(null)}
-                    onHome={handleHome}
-                    hoveredCategory={hoveredCategory}
-                />
-            </div>
 
-            {/* 2. Command Center (Desktop: Right 35%, Mobile: Slide-up Drawer/Bottom Bar) */}
-            <div className={`
+          {/* 1. Visual Stage (Desktop: Left 65%, Mobile: Top Layer) */}
+          <div className="flex-1 md:basis-[65%] lg:basis-[70%] h-full relative z-0">
+            <VisualStage
+              activeCategory={activeCategory}
+              activeItem={activeItem}
+              onSelectCategory={handleSelectCategory}
+              onClearSelection={() => setActiveItem(null)}
+              onHome={handleHome}
+              hoveredCategory={hoveredCategory}
+            />
+          </div>
+
+          {/* 2. Command Center (Desktop: Right 35%, Mobile: Slide-up Drawer/Bottom Bar) */}
+          <div className={`
                 fixed inset-x-0 bottom-0 z-30 
                 md:relative md:inset-auto md:basis-[35%] md:lg:basis-[30%] md:h-full
                 transition-transform duration-300 ease-in-out
@@ -135,37 +135,37 @@ const App: React.FC = () => {
                 md:translate-y-0 md:h-auto
                 bg-[#1A1A1A] border-t md:border-t-0 md:border-l border-[#333] shadow-2xl md:shadow-none
             `}>
-                {/* Mobile Handle / Toggle Bar */}
-                <div 
-                    className="md:hidden h-[60px] flex items-center justify-between px-6 bg-[#202020] border-b border-[#333] cursor-pointer"
-                    onClick={() => setIsMobileNavOpen(!isMobileNavOpen)}
-                >
-                    <span className="font-serif text-white">Command Center</span>
-                    {isMobileNavOpen ? <X size={20} /> : <Menu size={20} />}
-                </div>
-
-                {/* Actual Sidebar Content */}
-                <div className="h-[calc(100%-60px)] md:h-full">
-                    <Sidebar 
-                        activeCategory={activeCategory}
-                        activeItem={activeItem}
-                        onSelectCategory={handleSelectCategory}
-                        onSelectItem={handleSelectItem}
-                        onOpenResume={() => setIsResumeOpen(true)}
-                        onHome={handleHome}
-                        onHoverCategory={setHoveredCategory}
-                        categories={categories}
-                    />
-                </div>
+            {/* Mobile Handle / Toggle Bar */}
+            <div
+              className="md:hidden h-[60px] flex items-center justify-between px-6 bg-[#202020] border-b border-[#333] cursor-pointer"
+              onClick={() => setIsMobileNavOpen(!isMobileNavOpen)}
+            >
+              <span className="font-serif text-white">Command Center</span>
+              {isMobileNavOpen ? <X size={20} /> : <Menu size={20} />}
             </div>
+
+            {/* Actual Sidebar Content */}
+            <div className="h-[calc(100%-60px)] md:h-full">
+              <Sidebar
+                activeCategory={activeCategory}
+                activeItem={activeItem}
+                onSelectCategory={handleSelectCategory}
+                onSelectItem={handleSelectItem}
+                onOpenResume={() => setIsResumeOpen(true)}
+                onHome={handleHome}
+                onHoverCategory={setHoveredCategory}
+                categories={categories}
+              />
+            </div>
+          </div>
         </div>
       )}
 
       <ResumeModal isOpen={isResumeOpen} onClose={() => setIsResumeOpen(false)} />
-      
+
       {/* Onboarding Modal */}
       {showOnboarding && (
-        <OnboardingModal 
+        <OnboardingModal
           onClose={() => {
             setShowOnboarding(false);
             localStorage.setItem('portfolio-onboarding-completed', 'true');
