@@ -14,6 +14,7 @@ interface VisualStageProps {
     onClearSelection: () => void;
     onHome: () => void;
     hoveredCategory?: CategoryType | null;
+    onBoardTap?: () => void;
 }
 
 const VisualStage: React.FC<VisualStageProps> = ({
@@ -22,7 +23,8 @@ const VisualStage: React.FC<VisualStageProps> = ({
     onSelectCategory,
     onClearSelection,
     onHome,
-    hoveredCategory
+    hoveredCategory,
+    onBoardTap
 }) => {
     // Track if previous state had no item (fresh open vs switching)
     const prevHadItem = useRef(false);
@@ -51,7 +53,8 @@ const VisualStage: React.FC<VisualStageProps> = ({
             <div className="absolute inset-0 jali-pattern pointer-events-none"></div>
 
             {/* Layer 1: The Board (Context) */}
-            <div className={`absolute inset-0 transition-all duration-700 ease-out flex items-center justify-center gap-1 p-2 md:p-8 lg:p-12
+            <div
+                className={`absolute inset-0 transition-all duration-700 ease-out flex items-center justify-center gap-1 p-2 md:p-8 lg:p-12
             ${showBlur ? 'scale-95 opacity-50 blur-[1px]' : 'scale-100 opacity-100'}
         `}>
                 {/* Container for eval bar + board to maintain proper sizing */}
@@ -85,6 +88,13 @@ const VisualStage: React.FC<VisualStageProps> = ({
                 </div>
             </div>
 
+            {/* Mobile-only: Tap overlay to open Command Center */}
+            {!activeItem && onBoardTap && (
+                <div
+                    className="absolute inset-0 z-10 md:hidden"
+                    onClick={onBoardTap}
+                />
+            )}
 
             {/* Layer 2: Detail Overlay (Glassmorphism) */}
             <AnimatePresence>
@@ -94,19 +104,19 @@ const VisualStage: React.FC<VisualStageProps> = ({
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 20, transition: { duration: 0.25, delay: 0 } }}
                         transition={{ duration: 0.4, ease: "easeOut", delay: isFirstOpen ? 0.7 : 0 }}
-                        className="absolute inset-0 z-40 flex items-center justify-center p-3 sm:p-6 md:p-12 lg:p-20"
-                        onClick={onClearSelection} // Click outside to close
+                        className="fixed inset-0 z-50 flex items-end md:items-center justify-center p-0 md:p-12 lg:p-20"
+                        onClick={onClearSelection}
                     >
                         <div
-                            className="w-full max-w-3xl bg-[#252525]/95 backdrop-blur-xl border border-[rgba(197,160,89,0.1)] shadow-2xl rounded-sm overflow-hidden flex flex-col max-h-[90vh]"
+                            className="w-full md:max-w-3xl bg-[#252525]/95 backdrop-blur-xl border-t md:border border-[rgba(197,160,89,0.1)] shadow-2xl rounded-t-xl md:rounded-sm overflow-hidden flex flex-col max-h-[85vh] md:max-h-[90vh]"
                             onClick={(e) => e.stopPropagation()}
                         >
                             {/* Card Header */}
-                            <div className="relative p-4 sm:p-6 md:p-8 border-b border-[#333] flex flex-col sm:flex-row justify-between items-start gap-3 sm:gap-4">
+                            <div className="relative p-3 sm:p-5 md:p-8 border-b border-[#333] flex flex-col sm:flex-row justify-between items-start gap-2 sm:gap-4">
                                 <div className="flex-1">
-                                    <h2 className="text-xl sm:text-2xl md:text-4xl font-serif text-white mb-2 leading-tight">{activeItem.title}</h2>
+                                    <h2 className="text-lg sm:text-2xl md:text-4xl font-serif text-white mb-1 sm:mb-2 leading-tight">{activeItem.title}</h2>
                                     {activeItem.subtitle && (
-                                        <p className="text-[#C5A059] font-mono text-xs uppercase tracking-widest">{activeItem.subtitle}</p>
+                                        <p className="text-[#C5A059] font-mono text-[10px] sm:text-xs uppercase tracking-widest">{activeItem.subtitle}</p>
                                     )}
 
                                     {/* Chips / Badges */}
@@ -133,7 +143,7 @@ const VisualStage: React.FC<VisualStageProps> = ({
                             </div>
 
                             {/* Card Body */}
-                            <div className="p-4 sm:p-6 md:p-8 overflow-y-auto flex flex-col gap-6 sm:gap-8">
+                            <div className="p-3 sm:p-5 md:p-8 overflow-y-auto flex flex-col gap-4 sm:gap-8">
 
                                 {/* Main Content */}
                                 <div className="flex-1">

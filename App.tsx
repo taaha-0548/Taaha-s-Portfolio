@@ -4,6 +4,7 @@ import LandingPage from './components/LandingPage';
 import VisualStage from './components/VisualStage';
 import Sidebar from './components/Sidebar';
 import ResumeModal from './components/ResumeModal';
+import ReviewAvatar from './components/ReviewAvatar';
 import LoadingScreen from './components/LoadingScreen';
 import OnboardingModal from './components/OnboardingModal';
 import { usePortfolioData } from './hooks/usePortfolioData';
@@ -119,8 +120,18 @@ const App: React.FC = () => {
       ) : (
         <div className="flex-1 flex flex-col md:flex-row h-full overflow-hidden relative">
 
+          {/* Mobile-only: Avatar + speech bubble above the board (chess.com style) */}
+          <div className="md:hidden shrink-0 bg-[#1A1A1A] border-b border-[#333] px-3 py-2 z-10 max-h-[30vh] overflow-y-auto">
+            <ReviewAvatar
+              activeItem={activeItem}
+              activeCategoryCommentary={activeCategory ? categories[activeCategory]?.commentary : undefined}
+              activeCategoryMoveGrade={activeCategory ? categories[activeCategory]?.moveGrade : undefined}
+              isSidebar={true}
+            />
+          </div>
+
           {/* 1. Visual Stage (Desktop: Left side, Mobile: Full layer) */}
-          <div className="flex-1 h-full relative z-0 min-h-0">
+          <div className={`flex-1 h-full relative min-h-0 ${activeItem ? 'z-[60]' : 'z-0'}`}>
             <VisualStage
               activeCategory={activeCategory}
               activeItem={activeItem}
@@ -128,6 +139,7 @@ const App: React.FC = () => {
               onClearSelection={() => setActiveItem(null)}
               onHome={handleHome}
               hoveredCategory={hoveredCategory}
+              onBoardTap={() => setIsMobileNavOpen(true)}
             />
           </div>
 

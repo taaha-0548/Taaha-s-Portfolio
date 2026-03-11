@@ -54,8 +54,8 @@ const Sidebar: React.FC<SidebarProps> = ({
                 </button>
             </div>
 
-            {/* 2. Grandmaster Review (Commentary) - Top Side for prominence */}
-            <div className="px-2.5 md:px-3 lg:px-4 xl:px-5 py-2 md:py-3 lg:py-4 border-b border-[#333] shrink-0">
+            {/* 2. Grandmaster Review (Commentary) - Hidden on mobile (shown in top bar), visible on md+ */}
+            <div className="hidden md:block px-2.5 md:px-3 lg:px-4 xl:px-5 py-2 md:py-3 lg:py-4 border-b border-[#333] shrink-0">
                 <ReviewAvatar
                     activeItem={activeItem}
                     activeCategoryCommentary={activeCategory ? categories[activeCategory]?.commentary : undefined}

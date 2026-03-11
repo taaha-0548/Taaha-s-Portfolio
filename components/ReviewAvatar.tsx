@@ -7,13 +7,15 @@ interface ReviewAvatarProps {
     activeCategoryCommentary?: string;
     activeCategoryMoveGrade?: string;
     isSidebar?: boolean;
+    isMobileBar?: boolean;
 }
 
 const ReviewAvatar: React.FC<ReviewAvatarProps> = ({
     activeItem,
     activeCategoryCommentary,
     activeCategoryMoveGrade,
-    isSidebar = false
+    isSidebar = false,
+    isMobileBar = false
 }) => {
     const [displayText, setDisplayText] = useState('');
     const [isTyping, setIsTyping] = useState(false);
@@ -101,6 +103,16 @@ const ReviewAvatar: React.FC<ReviewAvatarProps> = ({
 
     const showMoveGrade = !!activeItem;
     const currentMoveGrade = activeItem?.moveGrade || activeCategoryMoveGrade;
+
+    // Mobile bar: compact single-line commentary
+    if (isMobileBar) {
+        return (
+            <p className="text-[11px] text-[#CCC] font-sans truncate leading-snug">
+                {displayText || '...'}
+                {isTyping && <span className="animate-pulse text-[#C5A059] ml-0.5">|</span>}
+            </p>
+        );
+    }
 
     if (isSidebar) {
         return (
