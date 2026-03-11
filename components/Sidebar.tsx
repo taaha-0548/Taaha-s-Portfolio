@@ -33,29 +33,29 @@ const Sidebar: React.FC<SidebarProps> = ({
         <div className="w-full h-full bg-[#1A1A1A] flex flex-col border-l border-[#333] relative">
 
             {/* 1. Sticky Header (Command Center Top) */}
-            <div className="sticky top-0 z-20 bg-[#1A1A1A]/95 backdrop-blur-sm border-b border-[#333] p-3 sm:p-4 md:p-6 flex flex-row items-center justify-between shadow-sm">
+            <div className="sticky top-0 z-20 bg-[#1A1A1A]/95 backdrop-blur-sm border-b border-[#333] p-2.5 md:p-3 lg:p-4 xl:p-5 flex flex-row items-center justify-between shadow-sm">
                 <div
-                    className="flex items-center gap-2 sm:gap-3 cursor-pointer group select-none"
+                    className="flex items-center gap-1.5 md:gap-2 lg:gap-3 cursor-pointer group select-none"
                     onClick={onHome}
                     title="Return to Start"
                 >
-                    <ChevronLeft className="text-[#333] group-hover:text-[#C5A059] transition-colors" size={18} />
+                    <ChevronLeft className="text-[#333] group-hover:text-[#C5A059] transition-colors" size={16} />
                     <div className="flex flex-col">
-                        <h1 className="font-serif text-base sm:text-lg md:text-xl text-white tracking-wide group-hover:text-[#C5A059] transition-colors">Muhammad Taaha</h1>
+                        <h1 className="font-serif text-sm md:text-base lg:text-lg xl:text-xl text-white tracking-wide group-hover:text-[#C5A059] transition-colors">Muhammad Taaha</h1>
                     </div>
                 </div>
                 <button
                     onClick={onOpenResume}
-                    className="flex items-center gap-1.5 sm:gap-2 bg-[#C5A059] hover:bg-[#D4AF37] text-black px-3 sm:px-4 py-1.5 sm:py-2 rounded-sm font-bold text-[10px] sm:text-xs uppercase tracking-wider transition-all transform active:scale-95"
+                    className="flex items-center gap-1 md:gap-1.5 bg-[#C5A059] hover:bg-[#D4AF37] text-black px-2 md:px-3 lg:px-4 py-1 md:py-1.5 lg:py-2 rounded-sm font-bold text-[9px] md:text-[10px] lg:text-xs uppercase tracking-wider transition-all transform active:scale-95"
                 >
-                    <Download size={12} className="hidden sm:block" />
-                    <span className="hidden sm:inline">Export Resume</span>
-                    <span className="sm:hidden">Resume</span>
+                    <Download size={11} className="hidden md:block" />
+                    <span className="hidden md:inline">Export Resume</span>
+                    <span className="md:hidden">Resume</span>
                 </button>
             </div>
 
             {/* 2. Grandmaster Review (Commentary) - Top Side for prominence */}
-            <div className="px-3 sm:px-4 md:px-6 py-4 border-b border-[#333] shrink-0">
+            <div className="px-2.5 md:px-3 lg:px-4 xl:px-5 py-2 md:py-3 lg:py-4 border-b border-[#333] shrink-0">
                 <ReviewAvatar
                     activeItem={activeItem}
                     activeCategoryCommentary={activeCategory ? categories[activeCategory]?.commentary : undefined}
@@ -66,8 +66,8 @@ const Sidebar: React.FC<SidebarProps> = ({
 
             {/* 3. Move List (Annotated List) */}
             <div className="flex-1 overflow-y-auto custom-scrollbar p-0">
-                <div className="px-3 sm:px-4 md:px-6 py-3 sm:py-4">
-                    <h3 className="font-mono text-[10px] sm:text-[11px] uppercase text-[#666] tracking-widest mb-3 sm:mb-4">Move List</h3>
+                <div className="px-2.5 md:px-3 lg:px-4 xl:px-5 py-2 md:py-3 lg:py-4">
+                    <h3 className="font-mono text-[9px] md:text-[10px] lg:text-[11px] uppercase text-[#666] tracking-widest mb-2 md:mb-3 lg:mb-4">Move List</h3>
 
                     <div className="space-y-1">
                         {(Object.values(categories) as Category[]).map((category) => {
@@ -116,7 +116,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                                             setHoveredCategory(null);
                                             onHoverCategory?.(null);
                                         }}
-                                        className={`w-full flex items-center text-left py-3 sm:py-4 px-3 sm:px-4 rounded-sm transition-all duration-200 relative
+                                        className={`w-full flex items-center text-left py-2 md:py-2.5 lg:py-3 xl:py-4 px-2 md:px-3 lg:px-4 rounded-sm transition-all duration-200 relative
                                     ${isActive ? 'bg-[#252525]' : 'hover:bg-[#252525]'}
                                 `}
                                     >
@@ -129,20 +129,20 @@ const Sidebar: React.FC<SidebarProps> = ({
                                         )}
 
                                         {/* Notation (Left) */}
-                                        <span className={`font-mono text-[10px] sm:text-xs w-12 sm:w-16 ${isActive ? 'text-[#C5A059]' : 'text-[#666] group-hover:text-[#888]'}`}>
+                                        <span className={`font-mono text-[9px] md:text-[10px] lg:text-xs w-10 md:w-12 lg:w-14 xl:w-16 ${isActive ? 'text-[#C5A059]' : 'text-[#666] group-hover:text-[#888]'}`}>
                                             {category.notation}
                                         </span>
 
                                         {/* Title (Right) */}
                                         <div className="flex-1">
-                                            <span className={`font-sans text-sm sm:text-base font-medium tracking-tight block ${isActive ? 'text-white' : 'text-[#BBB]'}`}>
+                                            <span className={`font-sans text-xs md:text-sm lg:text-base font-medium tracking-tight block ${isActive ? 'text-white' : 'text-[#BBB]'}`}>
                                                 {category.label}
                                             </span>
                                             {isActive && (
                                                 <motion.span
                                                     initial={{ opacity: 0 }}
                                                     animate={{ opacity: 1 }}
-                                                    className="text-[9px] sm:text-[10px] text-[#666] font-mono mt-0.5 block"
+                                                    className="text-[8px] md:text-[9px] lg:text-[10px] text-[#666] font-mono mt-0.5 block"
                                                 >
                                                     {category.description}
                                                 </motion.span>
@@ -159,7 +159,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                                                 exit={{ height: 0, opacity: 0 }}
                                                 className="overflow-hidden bg-[#202020] border-t border-[#333]"
                                             >
-                                                <div className="pl-8 sm:pl-12 pr-3 sm:pr-4 py-2 sm:py-3 space-y-0">
+                                                <div className="pl-6 md:pl-8 lg:pl-10 xl:pl-12 pr-2 md:pr-3 lg:pr-4 py-1.5 md:py-2 lg:py-3 space-y-0">
                                                     {category.items.map((item, index) => {
                                                         const isItemActive = activeItem?.id === item.id;
                                                         const isLastItem = index === category.items.length - 1;
@@ -182,11 +182,11 @@ const Sidebar: React.FC<SidebarProps> = ({
                                                                 {/* Item button */}
                                                                 <button
                                                                     onClick={(e) => { e.stopPropagation(); onSelectItem(item); }}
-                                                                    className={`w-full text-left py-2 sm:py-2.5 pl-6 sm:pl-8 pr-2 sm:pr-3 rounded-sm transition-all duration-200 flex items-center justify-between group/item relative
+                                                                    className={`w-full text-left py-1.5 md:py-2 lg:py-2.5 pl-5 md:pl-6 lg:pl-8 pr-2 md:pr-3 rounded-sm transition-all duration-200 flex items-center justify-between group/item relative
                                                                 ${isItemActive ? 'bg-[#2A2A2A] text-white' : 'text-[#888] hover:text-[#CCC] hover:bg-[#252525]'}
                                                             `}
                                                                 >
-                                                                    <span className={`text-xs sm:text-sm font-sans transition-colors ${isItemActive ? 'text-[#C5A059] font-medium' : ''}`}>
+                                                                    <span className={`text-[11px] md:text-xs lg:text-sm font-sans transition-colors ${isItemActive ? 'text-[#C5A059] font-medium' : ''}`}>
                                                                         {item.title}
                                                                     </span>
                                                                     {item.link && (

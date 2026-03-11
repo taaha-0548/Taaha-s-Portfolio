@@ -57,11 +57,16 @@ const App: React.FC = () => {
   };
 
   const handleSelectCategory = (cat: CategoryType) => {
-    // If switching categories, reset to starting position first
-    if (activeCategory && activeCategory !== cat) {
-      // Close any open item
+    // If tapping the same category, toggle it off
+    if (activeCategory === cat) {
+      setActiveCategory(null);
       setActiveItem(null);
-      // Reset to starting position
+      return;
+    }
+
+    // If switching categories, reset to starting position first
+    if (activeCategory) {
+      setActiveItem(null);
       setActiveCategory(null);
 
       // Wait for animation, then select new category
@@ -69,9 +74,9 @@ const App: React.FC = () => {
         setActiveCategory(cat);
         setActiveItem(null);
         setIsMobileNavOpen(true);
-      }, 400); // Match the chess piece animation duration
+      }, 400);
     } else {
-      // First selection or same category
+      // First selection
       setActiveCategory(cat);
       setActiveItem(null);
       setIsMobileNavOpen(true);
@@ -114,8 +119,8 @@ const App: React.FC = () => {
       ) : (
         <div className="flex-1 flex flex-col md:flex-row h-full overflow-hidden relative">
 
-          {/* 1. Visual Stage (Desktop: Left 65%, Mobile: Top Layer) */}
-          <div className="flex-1 md:basis-[65%] lg:basis-[70%] h-full relative z-0">
+          {/* 1. Visual Stage (Desktop: Left side, Mobile: Full layer) */}
+          <div className="flex-1 h-full relative z-0 min-h-0">
             <VisualStage
               activeCategory={activeCategory}
               activeItem={activeItem}
@@ -126,26 +131,41 @@ const App: React.FC = () => {
             />
           </div>
 
-          {/* 2. Command Center (Desktop: Right 35%, Mobile: Slide-up Drawer/Bottom Bar) */}
+          {/* 2. Command Center (Desktop: Right panel, Tablet: Narrower panel, Mobile: Slide-up Drawer) */}
           <div className={`
-                fixed inset-x-0 bottom-0 z-30 
-                md:relative md:inset-auto md:basis-[35%] md:lg:basis-[30%] md:h-full
-                transition-transform duration-300 ease-in-out
-                ${isMobileNavOpen ? 'translate-y-0 h-[60vh]' : 'translate-y-[calc(100%-60px)] h-[60vh]'}
-                md:translate-y-0 md:h-auto
-                bg-[#1A1A1A] border-t md:border-t-0 md:border-l border-[#333] shadow-2xl md:shadow-none
-            `}>
+                fixed inset-x-0 bottom-0 z-30 h-[65vh]
+                md:relative md:inset-auto md:z-auto md:h-full
+                md:w-[33%] lg:w-[30%] xl:w-[28%]
+                md:min-w-[280px] md:max-w-[440px]
+                md:flex-shrink-0
+                transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]
+                ${isMobileNavOpen ? 'translate-y-0' : 'translate-y-[calc(100%-56px)]'}
+                md:translate-y-0
+                bg-[#1A1A1A] border-t md:border-t-0 md:border-l border-[#333]
+                shadow-[0_-8px_30px_rgba(0,0,0,0.4)] md:shadow-none
+                rounded-t-2xl md:rounded-none
+            `}
+          >
             {/* Mobile Handle / Toggle Bar */}
             <div
-              className="md:hidden h-[60px] flex items-center justify-between px-6 bg-[#202020] border-b border-[#333] cursor-pointer"
+              className="md:hidden flex flex-col items-center cursor-pointer select-none"
               onClick={() => setIsMobileNavOpen(!isMobileNavOpen)}
             >
-              <span className="font-serif text-white">Command Center</span>
-              {isMobileNavOpen ? <X size={20} /> : <Menu size={20} />}
+              {/* Swipe Indicator */}
+              <div className="w-10 h-1 bg-[#555] rounded-full mt-2 mb-1"></div>
+              <div className="h-[44px] w-full flex items-center justify-between px-5">
+                <span className="font-serif text-sm text-white">Command Center</span>
+                <div className="flex items-center gap-2">
+                  {activeCategory && !isMobileNavOpen && (
+                    <span className="text-[10px] font-mono text-[#C5A059] uppercase tracking-wider">Tap to expand</span>
+                  )}
+                  {isMobileNavOpen ? <X size={18} className="text-[#999]" /> : <Menu size={18} className="text-[#999]" />}
+                </div>
+              </div>
             </div>
 
             {/* Actual Sidebar Content */}
-            <div className="h-[calc(100%-60px)] md:h-full">
+            <div className="h-[calc(100%-56px)] md:h-full overflow-hidden">
               <Sidebar
                 activeCategory={activeCategory}
                 activeItem={activeItem}

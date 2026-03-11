@@ -104,12 +104,12 @@ const ReviewAvatar: React.FC<ReviewAvatarProps> = ({
 
     if (isSidebar) {
         return (
-            <div className="w-full flex flex-col gap-4 mt-2">
-                <div className="flex items-center gap-3">
+            <div className="w-full flex flex-col gap-2 lg:gap-3 xl:gap-4 mt-1 lg:mt-2">
+                <div className="flex items-center gap-2 lg:gap-3">
                     <motion.div
                         initial={{ scale: 0, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
-                        className="w-14 h-14 rounded-full border-2 border-[#C5A059] bg-[#252525] overflow-hidden shrink-0 shadow-lg"
+                        className="w-9 h-9 md:w-10 md:h-10 lg:w-12 lg:h-12 xl:w-14 xl:h-14 rounded-full border-2 border-[#C5A059] bg-[#252525] overflow-hidden shrink-0 shadow-lg"
                     >
                         <img
                             src="/grandmaster_avatar.png"
@@ -118,29 +118,29 @@ const ReviewAvatar: React.FC<ReviewAvatarProps> = ({
                         />
                     </motion.div>
                     <div className="flex flex-col">
-                        <span className="text-[10px] font-mono text-[#C5A059] uppercase tracking-[0.2em] font-bold">Grandmaster Review</span>
-                        <div className="flex items-center gap-2 mt-1">
-                            <span className="w-2 h-2 rounded-full bg-[#26D5CE] animate-pulse"></span>
-                            <span className="text-[11px] font-mono text-white/50 uppercase tracking-wider">Analyzing Position...</span>
+                        <span className="text-[9px] lg:text-[10px] font-mono text-[#C5A059] uppercase tracking-[0.2em] font-bold">Grandmaster Review</span>
+                        <div className="flex items-center gap-1.5 mt-0.5 lg:mt-1">
+                            <span className="w-1.5 h-1.5 lg:w-2 lg:h-2 rounded-full bg-[#26D5CE] animate-pulse"></span>
+                            <span className="text-[9px] lg:text-[10px] xl:text-[11px] font-mono text-white/50 uppercase tracking-wider">Analyzing Position...</span>
                         </div>
                     </div>
                 </div>
 
                 <div className="relative">
                     {targetText && (
-                        <div className="bg-white text-[#1A1A1A] p-4 md:p-5 rounded-2xl rounded-tl-none shadow-[0_10px_30px_rgba(0,0,0,0.5)] relative">
+                        <div className="bg-white text-[#1A1A1A] p-2.5 md:p-3 lg:p-3.5 xl:p-4 rounded-xl lg:rounded-2xl rounded-tl-none shadow-[0_10px_30px_rgba(0,0,0,0.5)] relative">
                             {/* Bubble Tail */}
-                            <div className="absolute -top-2 left-4 w-4 h-4 bg-white transform rotate-45"></div>
+                            <div className="absolute -top-2 left-4 w-3 h-3 lg:w-4 lg:h-4 bg-white transform rotate-45"></div>
 
-                            <p className="font-sans text-sm md:text-base font-bold leading-relaxed tracking-tight">
+                            <p className="font-sans text-xs md:text-xs lg:text-sm xl:text-base font-bold leading-relaxed tracking-tight">
                                 {displayText}
                                 {isTyping && <span className="animate-pulse text-[#C5A059]">|</span>}
                             </p>
 
                             {showMoveGrade && currentMoveGrade && (
-                                <div className="mt-3 pt-3 border-t border-gray-100 flex items-center justify-between">
+                                <div className="mt-2 pt-2 lg:mt-3 lg:pt-3 border-t border-gray-100 flex items-center justify-between">
                                     <span className={`
-                                        px-2 py-1 rounded-sm text-[10px] font-black uppercase tracking-widest
+                                        px-1.5 py-0.5 lg:px-2 lg:py-1 rounded-sm text-[9px] lg:text-[10px] font-black uppercase tracking-widest
                                         ${currentMoveGrade === 'BRILLIANT' ? 'bg-[#26D5CE] text-white' :
                                             currentMoveGrade === 'BEST' ? 'bg-[#98BC4B] text-white' :
                                                 currentMoveGrade === 'GREAT' ? 'bg-[#5B8BB0] text-white' :
@@ -149,7 +149,7 @@ const ReviewAvatar: React.FC<ReviewAvatarProps> = ({
                                         {currentMoveGrade.replace('_', ' ')}
                                     </span>
 
-                                    <span className="text-[9px] font-mono text-gray-400 font-bold">ACCURACY: {(activeItem?.complexityScore || 8) * 10}%</span>
+                                    <span className="text-[8px] lg:text-[9px] font-mono text-gray-400 font-bold">ACCURACY: {(activeItem?.complexityScore || 8) * 10}%</span>
                                 </div>
                             )}
                         </div>

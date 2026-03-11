@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ChessBoard from './ChessBoard';
 import ReviewAvatar from './ReviewAvatar';
@@ -24,6 +24,25 @@ const VisualStage: React.FC<VisualStageProps> = ({
     onHome,
     hoveredCategory
 }) => {
+    // Track if previous state had no item (fresh open vs switching)
+    const prevHadItem = useRef(false);
+    const isFirstOpen = activeItem && !prevHadItem.current;
+    const [showBlur, setShowBlur] = useState(false);
+
+    useEffect(() => {
+        if (!activeItem) {
+            // Closing: clear blur immediately
+            setShowBlur(false);
+        } else if (!prevHadItem.current) {
+            // First open: delay blur to match modal
+            const timer = setTimeout(() => setShowBlur(true), 700);
+            return () => clearTimeout(timer);
+        } else {
+            // Switching items: blur immediately
+            setShowBlur(true);
+        }
+        prevHadItem.current = !!activeItem;
+    }, [activeItem]);
 
     return (
         <div className="relative w-full h-full bg-[#1A1A1A] flex items-center justify-center overflow-hidden">
@@ -33,7 +52,7 @@ const VisualStage: React.FC<VisualStageProps> = ({
 
             {/* Layer 1: The Board (Context) */}
             <div className={`absolute inset-0 transition-all duration-700 ease-out flex items-center justify-center gap-1 p-2 md:p-8 lg:p-12
-            ${activeItem ? 'scale-95 opacity-50 blur-[1px]' : 'scale-100 opacity-100'}
+            ${showBlur ? 'scale-95 opacity-50 blur-[1px]' : 'scale-100 opacity-100'}
         `}>
                 {/* Container for eval bar + board to maintain proper sizing */}
                 <div className="flex items-center gap-1 h-full w-full max-w-full max-h-full">
@@ -73,8 +92,8 @@ const VisualStage: React.FC<VisualStageProps> = ({
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 20 }}
-                        transition={{ duration: 0.4, ease: "easeOut", delay: 0.2 }}
+                        exit={{ opacity: 0, y: 20, transition: { duration: 0.25, delay: 0 } }}
+                        transition={{ duration: 0.4, ease: "easeOut", delay: isFirstOpen ? 0.7 : 0 }}
                         className="absolute inset-0 z-40 flex items-center justify-center p-3 sm:p-6 md:p-12 lg:p-20"
                         onClick={onClearSelection} // Click outside to close
                     >
