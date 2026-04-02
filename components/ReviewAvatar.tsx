@@ -125,16 +125,16 @@ const ReviewAvatar: React.FC<ReviewAvatarProps> = ({
                 const handle = prepare(targetText, fontString);
                 
                 // STEP 2: LAYOUT - Fast arithmetic to get exact height constraint
-                // We give it a max width of 260px (approx max-w-sm minus padding) and a line height of 24px
-                const { height } = layout(handle, 260, 24);
+                const targetWidth = isSidebar ? 230 : 260; // Narrower for mobile/sidebar
+                const { height } = layout(handle, targetWidth, 24);
                 
                 // Add padding dimensions
                 const paddingWidth = 32;
-                // Add extra vertical buffer to account for the move grade badges and line-height nuances
-                const paddingHeight = (activeItem || activeCategoryMoveGrade) ? 90 : 40;
+                // Slimmed down vertical buffer for mobile
+                const paddingHeight = (activeItem || activeCategoryMoveGrade) ? 55 : 20;
 
                 setBubbleBounds({ 
-                    width: 260 + paddingWidth, 
+                    width: targetWidth + paddingWidth, 
                     height: height + paddingHeight,
                     show: true
                 });
@@ -164,8 +164,8 @@ const ReviewAvatar: React.FC<ReviewAvatarProps> = ({
 
     if (isSidebar) {
         return (
-            <div className="w-full flex flex-col gap-2 lg:gap-3 xl:gap-4 mt-1 lg:mt-2">
-                <div className="flex items-center gap-2 lg:gap-3">
+            <div className="w-full flex flex-col items-center gap-2 lg:gap-3 xl:gap-4 mt-1 lg:mt-2">
+                <div className="flex items-center justify-center gap-2 lg:gap-3">
                     <motion.div
                         initial={{ scale: 0, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
@@ -193,17 +193,17 @@ const ReviewAvatar: React.FC<ReviewAvatarProps> = ({
                             animate={{ 
                                 scale: 1, 
                                 opacity: 1,
-                                width: bubbleBounds.width > 32 ? bubbleBounds.width : 'auto',
-                                height: bubbleBounds.height > 32 ? bubbleBounds.height : 'auto'
+                                height: 'auto',
+                                width: 'auto'
                             }}
                             transition={{ type: "spring", bounce: 0.15, duration: 0.4 }}
-                            className="bg-white text-[#1A1A1A] p-2.5 md:p-3 lg:p-3.5 xl:p-4 rounded-xl lg:rounded-2xl rounded-tl-none shadow-[0_10px_30px_rgba(0,0,0,0.5)] relative overflow-hidden"
-                            style={{ minWidth: '160px', minHeight: '60px' }}
+                            className="bg-white text-[#1A1A1A] px-5 py-3 md:p-4 rounded-xl lg:rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.4)] relative overflow-hidden flex flex-col items-center"
+                            style={{ minWidth: '140px', maxWidth: '320px' }}
                         >
-                            {/* Bubble Tail */}
-                            <div className="absolute -top-2 left-4 w-3 h-3 lg:w-4 lg:h-4 bg-white transform rotate-45"></div>
+                            {/* Bubble Tail - Centered for mobile header */}
+                            <div className="absolute -top-2 left-1/2 -translateX-1/2 w-3 h-3 lg:w-4 lg:h-4 bg-white transform rotate-45"></div>
 
-                            <p className="font-sans text-xs md:text-xs lg:text-sm xl:text-base font-bold leading-relaxed tracking-tight break-words">
+                            <p className="font-sans text-xs md:text-xs lg:text-sm xl:text-base font-bold leading-relaxed tracking-tight text-center break-words">
                                 {displayText}
                                 {isTyping && <span className="animate-pulse text-[#C5A059]">|</span>}
                             </p>

@@ -121,14 +121,16 @@ const App: React.FC = () => {
         <div className="flex-1 flex flex-col md:flex-row h-full overflow-hidden relative">
 
           {/* Mobile-only: Avatar + speech bubble above the board (chess.com style) */}
-          <div className="md:hidden shrink-0 bg-[#1A1A1A] border-b border-[#333] px-3 py-2 z-10 max-h-[30vh] overflow-y-auto">
-            <ReviewAvatar
+          <div className="md:hidden shrink-0 bg-[#1A1A1A] border-b border-[#333] px-4 py-2 z-10 flex justify-center">
+            <div className="w-full max-w-sm">
+              <ReviewAvatar
               activeItem={activeItem}
               activeCategoryCommentary={activeCategory ? categories[activeCategory]?.commentary : undefined}
               activeCategoryMoveGrade={activeCategory ? categories[activeCategory]?.moveGrade : undefined}
               isSidebar={true}
             />
           </div>
+        </div>
 
           {/* 1. Visual Stage (Desktop: Left side, Mobile: Full layer) */}
           <div className={`flex-1 h-full relative min-h-0 ${activeItem ? 'z-[60]' : 'z-0'}`}>

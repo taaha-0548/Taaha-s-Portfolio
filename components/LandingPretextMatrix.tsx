@@ -60,7 +60,7 @@ const LandingPretextMatrix: React.FC = () => {
                         speedX: (Math.random() - 0.5) * 0.5,
                         rotation: Math.random() * Math.PI * 2,
                         rotSpeed: (Math.random() - 0.5) * 0.05,
-                        size: 40 + Math.random() * 60, // 40-100px wide exclusion zone
+                        size: (width < 768 ? 20 : 40) + Math.random() * (width < 768 ? 30 : 60), 
                     }));
                     physicsObjectsRef.current = initObjs;
                 }

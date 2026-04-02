@@ -433,7 +433,7 @@ const ChessBoard: React.FC<ChessBoardProps> = ({
   return (
     <div className="w-full h-full flex items-center justify-center relative select-none">
       {/* Board Container: Responsive sizing that adapts to viewport */}
-      <div className="relative aspect-square w-[min(80vw,calc(100vh-120px))] md:w-auto md:h-full md:max-w-full md:max-h-full shadow-2xl rounded-sm overflow-hidden border border-[#2A2A2A] sm:border-2 md:border-4 lg:border-8">
+      <div className="relative aspect-square w-[min(95vw,calc(100vh-220px))] md:w-auto md:h-full md:max-w-full md:max-h-full shadow-2xl rounded-sm overflow-hidden border border-[#2A2A2A] sm:border-2 md:border-4 lg:border-8">
         <div ref={boardRef} className="grid grid-rows-8 h-full w-full relative select-none">
           {[...Array(8)].map((_, rowIndex) => (
             <div key={rowIndex} className="grid grid-cols-8 h-full w-full">
@@ -458,7 +458,7 @@ const ChessBoard: React.FC<ChessBoardProps> = ({
                   <div
                     key={`${rowIndex}-${colIndex}`}
                     onClick={() => attemptClickInteraction(rowIndex, colIndex, pieceAtSquare?.id)}
-                    className={`relative flex items-center justify-center text-xl sm:text-2xl md:text-4xl lg:text-5xl xl:text-6xl
+                    className={`relative flex items-center justify-center text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl
                       ${squareColor}
                       ${highlight === 'white' ? 'ring-inset ring-1 sm:ring-2 md:ring-4 ring-[#C5A059]' : ''}
                       ${highlight === 'black' ? 'ring-inset ring-1 sm:ring-2 md:ring-4 ring-[#2A9D8F]' : ''}
@@ -492,7 +492,8 @@ const ChessBoard: React.FC<ChessBoardProps> = ({
                         } : {}}
                         drag={((turn === 'w' && pieceAtSquare.id.startsWith('w')) || (turn === 'b' && !pieceAtSquare.id.startsWith('w')))}
                         dragSnapToOrigin={true}
-                        dragElastic={0.2}
+                        dragElastic={0.15}
+                        dragMomentum={false}
                         onDragStart={() => setSelectedPieceId(pieceAtSquare.id)}
                         onDragEnd={(e, info) => handlePointerDragEnd(e, info, pieceAtSquare.id)}
                         transition={{
@@ -577,9 +578,9 @@ const ChessBoard: React.FC<ChessBoardProps> = ({
         </div>
 
         {/* Turn Status Indicator to help users understand Drag Permissions */}
-        <div className="absolute top-0 right-0 m-2 sm:m-4 px-2 sm:px-3 py-1 bg-neutral-900/80 backdrop-blur-md border border-neutral-700/50 rounded-full shadow-lg pointer-events-none z-30 flex items-center gap-2">
-            <div className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full ${turn === 'w' ? 'bg-[#FAFAFA] shadow-[0_0_8px_rgba(255,255,255,0.8)]' : 'bg-neutral-600 shadow-[inset_0_1px_3px_rgba(0,0,0,0.8)]'}`} />
-            <span className="text-[10px] sm:text-xs font-mono text-white/90">
+        <div className="absolute -top-7 md:top-0 right-0 m-0 md:m-4 px-2 sm:px-3 py-0.5 sm:py-1 bg-neutral-900/80 backdrop-blur-md border border-neutral-700/50 rounded-full shadow-lg pointer-events-none z-30 flex items-center gap-1.5 sm:gap-2">
+            <div className={`w-1.5 h-1.5 sm:w-3 sm:h-3 rounded-full ${turn === 'w' ? 'bg-[#FAFAFA] shadow-[0_0_8px_rgba(255,255,255,0.8)]' : 'bg-neutral-600 shadow-[inset_0_1px_3px_rgba(0,0,0,0.8)]'}`} />
+            <span className="text-[8px] sm:text-xs font-mono text-white/90">
                 {turn === 'w' ? 'White to move' : 'Black to move'}
             </span>
         </div>

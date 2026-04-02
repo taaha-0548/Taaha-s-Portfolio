@@ -64,13 +64,13 @@ const VisualStage: React.FC<VisualStageProps> = ({
 
             {/* Layer 1: The Board (Context) */}
             <div
-                className={`absolute inset-0 transition-all duration-700 ease-out flex items-center justify-center gap-1 p-2 md:p-8 lg:p-12
+                className={`absolute inset-0 transition-all duration-700 ease-out flex items-center justify-center gap-1 p-1 md:p-8 lg:p-12
             ${showBlur ? 'scale-95 opacity-50 blur-[1px]' : 'scale-100 opacity-100'}
         `}>
                 {/* Container for eval bar + board to maintain proper sizing */}
                 <div className="flex items-center gap-1 h-full w-full max-w-full max-h-full">
                     {/* Evaluation Bar (Left of Board) - Always visible */}
-                    <div className="h-[min(80vw,calc(100vh-120px))] md:h-full w-6 sm:w-8 md:w-12 flex items-center gap-1 shrink-0">
+                    <div className="h-[min(95vw,calc(100vh-220px))] md:h-full w-8 sm:w-10 md:w-14 flex items-center gap-1 shrink-0">
                         <div className="flex-1 h-full w-full bg-white border border-[#2A2A2A] sm:border-2 md:border-4 relative overflow-hidden shadow-xl">
                             {/* Black advantage (top half) */}
                             <div
@@ -100,13 +100,7 @@ const VisualStage: React.FC<VisualStageProps> = ({
                 </div>
             </div>
 
-            {/* Mobile-only: Tap overlay to open Command Center */}
-            {!activeItem && onBoardTap && (
-                <div
-                    className="absolute inset-0 z-10 md:hidden"
-                    onClick={onBoardTap}
-                />
-            )}
+
 
             {/* Layer 2: Detail Overlay (Glassmorphism) */}
             <AnimatePresence>
