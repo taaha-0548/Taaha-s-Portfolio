@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PortfolioItem } from '../types';
+import { prepare, layout } from '@chenglou/pretext';
 
 interface ReviewAvatarProps {
     activeItem: PortfolioItem | null;
@@ -25,6 +26,9 @@ const ReviewAvatar: React.FC<ReviewAvatarProps> = ({
     // Core state-locking refs
     const explorationLocked = useRef(false);
     const prevCategoryRef = useRef<string | undefined>(activeCategoryCommentary);
+
+    // Pretext layout state
+    const [bubbleBounds, setBubbleBounds] = useState({ width: 0, height: 0, show: false });
 
     // 1. Logic for Snappy Category Switches vs Stable Item Hopping
     useEffect(() => {
@@ -101,6 +105,50 @@ const ReviewAvatar: React.FC<ReviewAvatarProps> = ({
         };
     }, [targetText]);
 
+    // 3. Pretext High-Performance Shrink-Wrapping
+    useEffect(() => {
+        let active = true;
+
+        const measureAndLayout = async () => {
+            if (!targetText) {
+                setBubbleBounds({ width: 0, height: 0, show: false });
+                return;
+            }
+
+            try {
+                // Wait for browser's font engine to be ready before computing via Canvas
+                await document.fonts.ready;
+                if (!active) return;
+
+                // STEP 1: PREPARE - Perform heavy measurement entirely outside the DOM
+                const fontString = "600 14px sans-serif"; // Matches our Tailwind text-sm font-semibold
+                const handle = prepare(targetText, fontString);
+                
+                // STEP 2: LAYOUT - Fast arithmetic to get exact height constraint
+                // We give it a max width of 260px (approx max-w-sm minus padding) and a line height of 24px
+                const { height } = layout(handle, 260, 24);
+                
+                // Add padding dimensions
+                const paddingWidth = 32;
+                // Add extra vertical buffer to account for the move grade badges and line-height nuances
+                const paddingHeight = (activeItem || activeCategoryMoveGrade) ? 90 : 40;
+
+                setBubbleBounds({ 
+                    width: 260 + paddingWidth, 
+                    height: height + paddingHeight,
+                    show: true
+                });
+            } catch (err) {
+                console.error("Pretext calculation failed (likely due to missing canvas context or library update):", err);
+                if (active) setBubbleBounds({ width: 280, height: 160, show: true }); // Fallback
+            }
+        };
+
+        measureAndLayout();
+
+        return () => { active = false; };
+    }, [targetText, activeItem, activeCategoryMoveGrade]);
+
     const showMoveGrade = !!activeItem;
     const currentMoveGrade = activeItem?.moveGrade || activeCategoryMoveGrade;
 
@@ -139,12 +187,23 @@ const ReviewAvatar: React.FC<ReviewAvatarProps> = ({
                 </div>
 
                 <div className="relative">
-                    {targetText && (
-                        <div className="bg-white text-[#1A1A1A] p-2.5 md:p-3 lg:p-3.5 xl:p-4 rounded-xl lg:rounded-2xl rounded-tl-none shadow-[0_10px_30px_rgba(0,0,0,0.5)] relative">
+                    {targetText && bubbleBounds.show && (
+                        <motion.div 
+                            initial={{ scale: 0.9, opacity: 0 }}
+                            animate={{ 
+                                scale: 1, 
+                                opacity: 1,
+                                width: bubbleBounds.width > 32 ? bubbleBounds.width : 'auto',
+                                height: bubbleBounds.height > 32 ? bubbleBounds.height : 'auto'
+                            }}
+                            transition={{ type: "spring", bounce: 0.15, duration: 0.4 }}
+                            className="bg-white text-[#1A1A1A] p-2.5 md:p-3 lg:p-3.5 xl:p-4 rounded-xl lg:rounded-2xl rounded-tl-none shadow-[0_10px_30px_rgba(0,0,0,0.5)] relative overflow-hidden"
+                            style={{ minWidth: '160px', minHeight: '60px' }}
+                        >
                             {/* Bubble Tail */}
                             <div className="absolute -top-2 left-4 w-3 h-3 lg:w-4 lg:h-4 bg-white transform rotate-45"></div>
 
-                            <p className="font-sans text-xs md:text-xs lg:text-sm xl:text-base font-bold leading-relaxed tracking-tight">
+                            <p className="font-sans text-xs md:text-xs lg:text-sm xl:text-base font-bold leading-relaxed tracking-tight break-words">
                                 {displayText}
                                 {isTyping && <span className="animate-pulse text-[#C5A059]">|</span>}
                             </p>
@@ -164,7 +223,7 @@ const ReviewAvatar: React.FC<ReviewAvatarProps> = ({
                                     <span className="text-[8px] lg:text-[9px] font-mono text-gray-400 font-bold">ACCURACY: {(activeItem?.complexityScore || 8) * 10}%</span>
                                 </div>
                             )}
-                        </div>
+                        </motion.div>
                     )}
                 </div>
             </div>
@@ -186,11 +245,22 @@ const ReviewAvatar: React.FC<ReviewAvatarProps> = ({
             </motion.div>
 
             <div className="relative">
-                {targetText && (
-                    <div className="bg-white text-[#1A1A1A] p-3 md:p-4 rounded-2xl rounded-br-none shadow-2xl max-w-[200px] sm:max-w-[280px] md:max-w-md relative pointer-events-auto">
+                {targetText && bubbleBounds.show && (
+                    <motion.div 
+                        initial={{ scale: 0.9, opacity: 0 }}
+                        animate={{ 
+                            scale: 1, 
+                            opacity: 1,
+                            width: bubbleBounds.width > 32 ? bubbleBounds.width : 'auto',
+                            height: bubbleBounds.height > 32 ? bubbleBounds.height : 'auto'
+                        }}
+                        transition={{ type: "spring", bounce: 0.15, duration: 0.4 }}
+                        className="bg-white text-[#1A1A1A] p-3 md:p-4 rounded-2xl rounded-br-none shadow-2xl relative pointer-events-auto overflow-hidden"
+                        style={{ minWidth: '160px', minHeight: '60px' }}
+                    >
                         <div className="absolute -right-2 bottom-0 w-4 h-4 bg-white transform rotate-45"></div>
 
-                        <p className="font-sans text-xs md:text-sm font-semibold leading-relaxed px-1">
+                        <p className="font-sans text-xs md:text-sm font-semibold leading-relaxed px-1 break-words">
                             {displayText}
                             {isTyping && <span className="animate-pulse">_</span>}
                         </p>
@@ -208,7 +278,7 @@ const ReviewAvatar: React.FC<ReviewAvatarProps> = ({
                                 </span>
                             </div>
                         )}
-                    </div>
+                    </motion.div>
                 )}
             </div>
         </div>

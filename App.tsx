@@ -140,6 +140,8 @@ const App: React.FC = () => {
               onHome={handleHome}
               hoveredCategory={hoveredCategory}
               onBoardTap={() => setIsMobileNavOpen(true)}
+              onSelectItem={handleSelectItem}
+              categories={categories}
             />
           </div>
 

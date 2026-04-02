@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowRight, FileText, Github, Linkedin } from 'lucide-react';
 import { PROFILE_IMAGE_URL, SOCIAL_LINKS } from '../constants';
+import LandingPretextMatrix from './LandingPretextMatrix';
 
 interface LandingPageProps {
     onStart: () => void;
@@ -11,6 +12,9 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart, onOpenResume }) => {
     return (
         <div className="min-h-screen flex flex-col items-center justify-center p-6 text-center bg-black relative overflow-hidden selection:bg-white selection:text-black">
 
+            {/* Layer 0: Spatial Pretext matrix with dropping pieces */}
+            <LandingPretextMatrix />
+
             {/* Layer 1: Strategic Grid Background (Abstract Chess Board) */}
             <div className="absolute inset-0 pointer-events-none opacity-[0.05]"
                 style={{
@@ -20,10 +24,10 @@ const LandingPage: React.FC<LandingPageProps> = ({ onStart, onOpenResume }) => {
             </div>
 
             {/* Layer 2: Ambient Spotlight (Subtle depth) */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-white/5 rounded-full blur-[100px] pointer-events-none"></div>
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-white/5 rounded-full blur-[100px] pointer-events-none z-10"></div>
 
             {/* Layer 3: Main Content */}
-            <div className="relative z-10 max-w-5xl w-full flex flex-col items-center gap-6 md:gap-8">
+            <div className="relative z-20 max-w-5xl w-full flex flex-col items-center gap-6 md:gap-8">
 
                 {/* Profile Image & Socials Wrapper */}
                 <div className="flex items-center gap-6 sm:gap-8 md:gap-10">

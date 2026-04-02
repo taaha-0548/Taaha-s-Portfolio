@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ChessBoard from './ChessBoard';
 import ReviewAvatar from './ReviewAvatar';
+import PretextCanvas from './PretextCanvas';
 import { CategoryType, PortfolioItem } from '../types';
 import { THEME } from '../constants';
 import { OPENING_METAPHORS } from '../constants/openingMetaphors';
@@ -15,6 +16,8 @@ interface VisualStageProps {
     onHome: () => void;
     hoveredCategory?: CategoryType | null;
     onBoardTap?: () => void;
+    onSelectItem: (item: PortfolioItem) => void;
+    categories: Record<CategoryType, any>;
 }
 
 const VisualStage: React.FC<VisualStageProps> = ({
@@ -24,7 +27,9 @@ const VisualStage: React.FC<VisualStageProps> = ({
     onClearSelection,
     onHome,
     hoveredCategory,
-    onBoardTap
+    onBoardTap,
+    onSelectItem,
+    categories
 }) => {
     // Track if previous state had no item (fresh open vs switching)
     const prevHadItem = useRef(false);
@@ -51,6 +56,11 @@ const VisualStage: React.FC<VisualStageProps> = ({
 
             {/* Layer 0: Jali Pattern Background */}
             <div className="absolute inset-0 jali-pattern pointer-events-none"></div>
+
+            {/* Layer 0.5: Pretext Spatial Typography Wall */}
+            <PretextCanvas 
+                textContent="[GAME DATA] 1. e4 c5 2. Nf3 d6 3. d4 cxd4 4. Nxd4 Nf6 5. Nc3 a6 6. Bg5 e6 7. f4 The Grandmaster's Portfolio Engine v1.0. Analysis reveals significant strategic depth. Evaluating Next Moves: Projects, Research, Experience, Community. [MATE IN 4 DETECTED] Calculating optimal path... Engine evaluation +4.5 - Pretext dynamic sub-system engaged... 8. Qd2 b5 9. a3 Bb7 10. O-O-O Nbd7 11. Bd3 h6 12. Bh4 13. e5 dxe5 14. fxe5 Nxe5 The Sicilian Najdorf structure provides a complex foundation for learning and adaptation. " 
+            />
 
             {/* Layer 1: The Board (Context) */}
             <div
@@ -83,6 +93,8 @@ const VisualStage: React.FC<VisualStageProps> = ({
                             activeItem={activeItem} // Pass item to trigger Black move
                             onSelectCategory={onSelectCategory}
                             hoveredCategory={hoveredCategory}
+                            onSelectItem={onSelectItem}
+                            categories={categories}
                         />
                     </div>
                 </div>
